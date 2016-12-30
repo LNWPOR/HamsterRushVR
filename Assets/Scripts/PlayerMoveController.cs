@@ -24,10 +24,13 @@ public class PlayerMoveController : MonoBehaviour {
 
     private float newLanePosX;
 
+    private Rigidbody playerRigidbody;
+
     void Awake()
     {
         CapsuleHandSwipes_L = CapsuleHand_L.GetComponent<Swipes>();
         CapsuleHandSwipes_R = CapsuleHand_R.GetComponent<Swipes>();
+        playerRigidbody = GetComponent<Rigidbody>();
     }
     
     void Start () {
@@ -41,6 +44,15 @@ public class PlayerMoveController : MonoBehaviour {
         CheckCanChangeLane();
         CheckMoveTrigger();
         CheckIsChangeLane();
+        CheckIsJuming();
+    }
+
+    private void CheckIsJuming()
+    {
+        if (jump.isMoving)
+        {
+            playerRigidbody.AddForce(new Vector3(0, 20, 0));
+        }
     }
 
     private void CheckCanChangeLane()
