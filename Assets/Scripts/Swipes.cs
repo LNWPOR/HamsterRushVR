@@ -5,8 +5,9 @@ public class Swipes : MonoBehaviour
 {
     public Transform palm;
     public float threshold = 0.02f;
-    public float timeTreshold = 0.2f;
-    public float swipingTime = 0.2f;
+    public float timeTreshold = 0.8f;
+    public float swipingTimeLimit = 0.2f;
+    public float swipingTimeCurrent = 0;
     private float timer = 0.0f;
     private float lastTime;
     private Vector3 lastPos;
@@ -88,8 +89,9 @@ public class Swipes : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        WaitSwiping();
 
+        timer += Time.deltaTime;
         //update lastPos, lastTime
         if (timer - lastTime > timeTreshold)
         {
@@ -108,6 +110,21 @@ public class Swipes : MonoBehaviour
         }
     }
 
+    private void WaitSwiping()
+    {
+        if (swipingTimeCurrent > 0)
+        {
+            swipingTimeCurrent -= Time.deltaTime;
+        }
+        else
+        {
+            isSwipingRight = false;
+            isSwipingLeft = false;
+            isSwipingUp = false;
+            isSwipingDown = false;
+        }
+    }
+
     private void CheckSwipeDir(bool offsetResult, string swipingDir)
     {
         if (offsetResult && handIsExtending.Equals(true) )
@@ -115,22 +132,26 @@ public class Swipes : MonoBehaviour
             if (swipingDir.Equals("SWIPING_RIGHT") && !isSwipingRight)
             {
                 isSwipingRight = true;
-                StartCoroutine(WaitSwiping(swipingTime, (i) => { isSwipingRight = i; }));
+                swipingTimeCurrent = swipingTimeLimit;
+                //StartCoroutine(WaitSwiping(swipingTimeLimit, (i) => { isSwipingRight = i; }));
             }
             else if (swipingDir.Equals("SWIPING_LEFT") && !isSwipingLeft)
             {
                 isSwipingLeft = true;
-                StartCoroutine(WaitSwiping(swipingTime, (i) => { isSwipingLeft = i; }));
+                swipingTimeCurrent = swipingTimeLimit;
+                //StartCoroutine(WaitSwiping(swipingTimeLimit, (i) => { isSwipingLeft = i; }));
             }
             else if (swipingDir.Equals("SWIPING_UP") && !isSwipingUp)
             {
                 isSwipingUp = true;
-                StartCoroutine(WaitSwiping(swipingTime, (i) => { isSwipingUp = i; }));
+                swipingTimeCurrent = swipingTimeLimit;
+                //StartCoroutine(WaitSwiping(swipingTimeLimit, (i) => { isSwipingUp = i; }));
             }
             else if (swipingDir.Equals("SWIPING_DOWN") && !isSwipingDown)
             {
                 isSwipingDown = true;
-                StartCoroutine(WaitSwiping(swipingTime, (i) => { isSwipingDown = i; }));
+                swipingTimeCurrent = swipingTimeLimit;
+                //StartCoroutine(WaitSwiping(swipingTimeLimit, (i) => { isSwipingDown = i; }));
             }
         }
     }
@@ -143,6 +164,7 @@ public class Swipes : MonoBehaviour
     //    isSwipingDown = false;
     //}
 
+    /*
     private IEnumerator WaitSwiping(float time, System.Action<bool> isSwipingDir)
     {
         float count = 0;
@@ -154,5 +176,5 @@ public class Swipes : MonoBehaviour
         }
         isSwipingDir(false);
     }
-
+    */
 }
