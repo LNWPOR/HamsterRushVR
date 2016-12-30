@@ -90,6 +90,7 @@ public class Swipes : MonoBehaviour
     {
         timer += Time.deltaTime;
 
+        //update lastPos, lastTime
         if (timer - lastTime > timeTreshold)
         {
             lastPos = palm.position;
@@ -98,6 +99,7 @@ public class Swipes : MonoBehaviour
         }
         else
         {
+            //Check SwipeDir
             Vector3 offset = palm.position - lastPos;
             CheckSwipeDir(offset.x > threshold, "SWIPING_RIGHT") ;
             CheckSwipeDir(-offset.x > threshold, "SWIPING_LEFT");
