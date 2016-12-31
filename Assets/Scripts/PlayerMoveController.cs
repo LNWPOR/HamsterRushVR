@@ -13,7 +13,6 @@ public class PlayerMoveController : MonoBehaviour {
     //public float movingTimeCurrent = 0f;
 
     public float changeLaneTimerLimit = 0.8f;
-    public float jumpTimerLimit = 1f;
     public float slideTimerLimit = 1f;
 
     public List<PlayerMoveData> moveList = new List<PlayerMoveData>();
@@ -28,67 +27,45 @@ public class PlayerMoveController : MonoBehaviour {
     private float newLanePosX;
 
     private Rigidbody playerRigidbody;
-
+    private bool isGrounded;
+    public float jumpPower = 5f;
     void Awake()
     {
         CapsuleHandSwipes_L = CapsuleHand_L.GetComponent<Swipes>();
         CapsuleHandSwipes_R = CapsuleHand_R.GetComponent<Swipes>();
         playerRigidbody = GetComponent<Rigidbody>();
     }
-    
     void Start () {
         InitMoveList();
         playerSpeed = playerStartSpeed;
     }
     private void InitMoveList()
     {
-        moveRight = new PlayerMoveData("MoveRight", changeLaneTimerLimit);
-        moveLeft = new PlayerMoveData("MoveLeft", changeLaneTimerLimit);
-        jump = new PlayerMoveData("Jump", jumpTimerLimit);
-        slide = new PlayerMoveData("Slide", slideTimerLimit);
+        moveRight = new PlayerMoveData("MoveRight");
+        moveLeft = new PlayerMoveData("MoveLeft");
+        jump = new PlayerMoveData("Jump");
+        slide = new PlayerMoveData("Slide");
 
         moveRight.InitOtherMoveStopList(new List<PlayerMoveData> { moveLeft });
         moveLeft.InitOtherMoveStopList(new List<PlayerMoveData> { moveRight });
         jump.InitOtherMoveStopList(new List<PlayerMoveData> { slide });
         slide.InitOtherMoveStopList(new List<PlayerMoveData> { jump });
 
+        moveRight.InitTimerLimit(changeLaneTimerLimit);
+        moveLeft.InitTimerLimit(changeLaneTimerLimit);
+        slide.InitTimerLimit(slideTimerLimit);
+
         moveList.Add(moveRight);
         moveList.Add(moveLeft);
         moveList.Add(jump);
         moveList.Add(slide);
     }
-
     void Update () {
-        Debug.Log(moveRight.canMove);
         MoveForward();
-        WaitAllMovingTimer();
-        CheckCanChangeLane();
-        CheckMoveTrigger();
         CheckIsChangeLane();
-        CheckIsJuming();
+        CheckMoveTrigger();
+        WaitAllMovingTimer();
     }
-
-    private void CheckIsJuming()
-    {
-        if (jump.isMoving)
-        {
-            playerRigidbody.AddForce(new Vector3(0, 20, 0));
-        }
-    }
-
-    private void CheckCanChangeLane()
-    {
-        if (transform.position.x.Equals(1))
-        {
-            moveRight.canMove = false;
-        }
-
-        if (transform.position.x.Equals(-1))
-        {
-            moveLeft.canMove = false;
-        }
-    }
-
     private void CheckIsChangeLane()
     {
         if (moveRight.isMoving || moveLeft.isMoving)
@@ -96,84 +73,77 @@ public class PlayerMoveController : MonoBehaviour {
             ChangeLane(newLanePosX, changeLaneTimerLimit / (Mathf.Abs(transform.position.x - newLanePosX)));
         }
     }
-
     private void WaitAllMovingTimer()
     {
-        foreach (PlayerMoveData move in moveList)
-        {
-            move.WaitMovingTimer();
-        }
+        moveRight.WaitMovingTimer();
+        moveLeft.WaitMovingTimer();
+        slide.WaitMovingTimer();
     }
-
     public void ChangeLane(float newLanePosX, float fracJourney)
     {
         Vector3 newLanePos = new Vector3(newLanePosX, transform.position.y, transform.position.z);
         transform.position = Vector3.Lerp(transform.position, newLanePos, fracJourney);
     }
-
     public void ChangeNewLanePosX(float addPosX)
     {
         newLanePosX += addPosX;
     }
-
     public void MoveForward()
     {
         Vector3 newPos = transform.position;
         newPos.z += Time.deltaTime * playerSpeed;
         transform.position = newPos;
     }
-
     private void CheckMoveTrigger()
     {
         if (CapsuleHandSwipes_L.IsSwipingRight && CapsuleHandSwipes_R.IsSwipingRight)
         {
-            if (moveRight.canMove)
+            if (!moveRight.isMoving && !transform.position.x.Equals(1) && !moveRight.OtherMoveIsMoving())
             {
                 Debug.Log("MoveRight");
                 ChangeNewLanePosX(1);
-                moveRight.StartMoving();
+                moveRight.isMoving = true;
+                moveRight.StartMoveTimer();
             }
+            
         }
         else if (CapsuleHandSwipes_L.IsSwipingLeft && CapsuleHandSwipes_R.IsSwipingLeft)
         {
-            if (moveLeft.canMove)
+            if (!moveLeft.isMoving && !transform.position.x.Equals(-1) && !moveLeft.OtherMoveIsMoving())
             {
                 Debug.Log("MoveLeft");
                 ChangeNewLanePosX(-1);
-                moveLeft.StartMoving();
+                moveLeft.isMoving = true;
+                moveLeft.StartMoveTimer();
             }
         }
         else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp)
         {
-            if (jump.canMove)
+            if (isGrounded && !jump.OtherMoveIsMoving())
             {
                 Debug.Log("Jump");
-                jump.StartMoving();
+                playerRigidbody.velocity = new Vector3(0, jumpPower, 0);
+                isGrounded = false;
+                jump.isMoving = true;
             }
+
         }
         else if (CapsuleHandSwipes_L.IsSwipingDown && CapsuleHandSwipes_R.IsSwipingDown)
         {
-            if (slide.canMove)
+            if (!slide.isMoving && isGrounded && !slide.OtherMoveIsMoving())
             {
                 Debug.Log("Slide");
-                slide.StartMoving();
+                slide.isMoving = true;
+                slide.StartMoveTimer();
             }
         }
     }
-
-    private void StopAllCanMove()
+    void OnCollisionStay(Collision other)
     {
-        foreach (PlayerMoveData move in moveList)
+        if (other.gameObject.tag.Equals("Ground"))
         {
-            move.StopCanMove();
-        }
-    }
-
-    private void StartAllCanMove()
-    {
-        foreach (PlayerMoveData move in moveList)
-        {
-            move.StartCanMove();
+            isGrounded = true;
+            jump.isMoving = false;
         }
     }
 }

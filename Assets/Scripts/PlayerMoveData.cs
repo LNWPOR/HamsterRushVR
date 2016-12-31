@@ -4,51 +4,27 @@ using UnityEngine;
 
 public class PlayerMoveData {
     public string name;
-    public bool canMove = true;
     public bool isMoving = false;
     public float moveTimerLimit;
     public float moveTimerCurrent = 0f;
 
-    public List<PlayerMoveData> otherMoveStopList;
+    public List<PlayerMoveData> otherMovingCheckList;
 
-    public PlayerMoveData(string newName, float newMoveTimerLimit)
+    public PlayerMoveData(string newName)
     {
         name = newName;
+    }
+    public void InitOtherMoveStopList(List<PlayerMoveData> newOtherMovingCheckList)
+    {
+        otherMovingCheckList = newOtherMovingCheckList;
+    }
+    public void InitTimerLimit(float newMoveTimerLimit)
+    {
         moveTimerLimit = newMoveTimerLimit;
     }
-
-    public void InitOtherMoveStopList(List<PlayerMoveData> newOtherMoveStopList)
-    {
-        otherMoveStopList = newOtherMoveStopList;
-    }
-
-    public void StartMoving()
-    {
-        isMoving = true;
-        StopCanMove();
-        StartMoveTimer();
-        StopOtherCanMove();
-    }
-
-    public void StopIsMoving()
-    {
-        isMoving = false;
-    }
-
     public void StartMoveTimer()
     {
         moveTimerCurrent = moveTimerLimit;
-    }
-
-    public void StopCanMove()
-    {
-        canMove = false;
-    }
-
-    public void StartCanMove()
-    {
-        canMove = true;
-        StopIsMoving();
     }
 
     public void WaitMovingTimer()
@@ -61,26 +37,21 @@ public class PlayerMoveData {
             }
             else
             {
-                StartCanMove();
-                StartOtherCanMove();
+                isMoving = false;
             }
         }
     }
 
-    public void StartOtherCanMove()
+    public bool OtherMoveIsMoving()
     {
-        foreach (PlayerMoveData move in otherMoveStopList)
+        int count = 0;
+        foreach (PlayerMoveData move in otherMovingCheckList)
         {
-            move.StartCanMove();
+            if (move.isMoving.Equals(true))
+            {
+                count += 1;
+            }
         }
-    }
-
-    public void StopOtherCanMove()
-    {
-        foreach (PlayerMoveData move in otherMoveStopList)
-        {
-            move.StopCanMove();
-        }
-
+        return count.Equals(otherMovingCheckList.Count);
     }
 }
