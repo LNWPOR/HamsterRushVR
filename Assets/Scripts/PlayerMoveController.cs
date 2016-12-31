@@ -9,15 +9,18 @@ public class PlayerMoveController : MonoBehaviour {
     public GameObject CapsuleHand_R;
     private Swipes CapsuleHandSwipes_R;
 
-    public float movingTimeLimit = 0.8f;
-    public float movingTimeCurrent = 0f;
+    //public float movingTimeLimit = 0.8f;
+    //public float movingTimeCurrent = 0f;
+
+    public float changeLaneTimerLimit = 0.8f;
+    public float jumpTimerLimit = 1f;
+    public float slideTimerLimit = 1f;
 
     public List<PlayerMoveData> moveList = new List<PlayerMoveData>();
-    public PlayerMoveData moveRight = new PlayerMoveData("MoveRight");
-    public PlayerMoveData moveLeft = new PlayerMoveData("MoveLeft");
-    public PlayerMoveData jump = new PlayerMoveData("Jump");
-    public PlayerMoveData slide = new PlayerMoveData("Slide");
-
+    public PlayerMoveData moveRight;
+    public PlayerMoveData moveLeft;
+    public PlayerMoveData jump;
+    public PlayerMoveData slide;
 
     public float playerStartSpeed = 2f;
     public float playerSpeed;
@@ -37,10 +40,28 @@ public class PlayerMoveController : MonoBehaviour {
         InitMoveList();
         playerSpeed = playerStartSpeed;
     }
-	
-	void Update () {
+    private void InitMoveList()
+    {
+        moveRight = new PlayerMoveData("MoveRight", changeLaneTimerLimit);
+        moveLeft = new PlayerMoveData("MoveLeft", changeLaneTimerLimit);
+        jump = new PlayerMoveData("Jump", jumpTimerLimit);
+        slide = new PlayerMoveData("Slide", slideTimerLimit);
+
+        moveRight.InitOtherMoveStopList(new List<PlayerMoveData> { moveLeft });
+        moveLeft.InitOtherMoveStopList(new List<PlayerMoveData> { moveRight });
+        jump.InitOtherMoveStopList(new List<PlayerMoveData> { slide });
+        slide.InitOtherMoveStopList(new List<PlayerMoveData> { jump });
+
+        moveList.Add(moveRight);
+        moveList.Add(moveLeft);
+        moveList.Add(jump);
+        moveList.Add(slide);
+    }
+
+    void Update () {
+        Debug.Log(moveRight.canMove);
         MoveForward();
-        WaitMovingTime();
+        WaitAllMovingTimer();
         CheckCanChangeLane();
         CheckMoveTrigger();
         CheckIsChangeLane();
@@ -72,19 +93,15 @@ public class PlayerMoveController : MonoBehaviour {
     {
         if (moveRight.isMoving || moveLeft.isMoving)
         {
-            ChangeLane(newLanePosX, movingTimeLimit / (Mathf.Abs(transform.position.x - newLanePosX)));
+            ChangeLane(newLanePosX, changeLaneTimerLimit / (Mathf.Abs(transform.position.x - newLanePosX)));
         }
     }
 
-    private void WaitMovingTime()
+    private void WaitAllMovingTimer()
     {
-        if (movingTimeCurrent > 0)
+        foreach (PlayerMoveData move in moveList)
         {
-            movingTimeCurrent -= Time.deltaTime;
-        }
-        else
-        {
-            CanMove();
+            move.WaitMovingTimer();
         }
     }
 
@@ -106,14 +123,6 @@ public class PlayerMoveController : MonoBehaviour {
         transform.position = newPos;
     }
 
-    private void InitMoveList()
-    {
-        moveList.Add(moveRight);
-        moveList.Add(moveLeft);
-        moveList.Add(jump);
-        moveList.Add(slide);
-    }
-
     private void CheckMoveTrigger()
     {
         if (CapsuleHandSwipes_L.IsSwipingRight && CapsuleHandSwipes_R.IsSwipingRight)
@@ -121,10 +130,8 @@ public class PlayerMoveController : MonoBehaviour {
             if (moveRight.canMove)
             {
                 Debug.Log("MoveRight");
-                moveRight.isMoving = true;
                 ChangeNewLanePosX(1);
-                movingTimeCurrent = movingTimeLimit;
-                StopMove();
+                moveRight.StartMoving();
             }
         }
         else if (CapsuleHandSwipes_L.IsSwipingLeft && CapsuleHandSwipes_R.IsSwipingLeft)
@@ -132,10 +139,8 @@ public class PlayerMoveController : MonoBehaviour {
             if (moveLeft.canMove)
             {
                 Debug.Log("MoveLeft");
-                moveLeft.isMoving = true;
                 ChangeNewLanePosX(-1);
-                movingTimeCurrent = movingTimeLimit;
-                StopMove();
+                moveLeft.StartMoving();
             }
         }
         else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp)
@@ -143,9 +148,7 @@ public class PlayerMoveController : MonoBehaviour {
             if (jump.canMove)
             {
                 Debug.Log("Jump");
-                jump.isMoving = true;
-                movingTimeCurrent = movingTimeLimit;
-                StopMove();
+                jump.StartMoving();
             }
         }
         else if (CapsuleHandSwipes_L.IsSwipingDown && CapsuleHandSwipes_R.IsSwipingDown)
@@ -153,27 +156,24 @@ public class PlayerMoveController : MonoBehaviour {
             if (slide.canMove)
             {
                 Debug.Log("Slide");
-                slide.isMoving = true;
-                movingTimeCurrent = movingTimeLimit;
-                StopMove();
+                slide.StartMoving();
             }
         }
     }
 
-    private void StopMove()
+    private void StopAllCanMove()
     {
         foreach (PlayerMoveData move in moveList)
         {
-            move.canMove = false;
+            move.StopCanMove();
         }
     }
 
-    private void CanMove()
+    private void StartAllCanMove()
     {
         foreach (PlayerMoveData move in moveList)
         {
-            move.canMove = true;
-            move.isMoving = false;
+            move.StartCanMove();
         }
     }
 }
