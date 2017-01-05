@@ -127,9 +127,9 @@ public class PlayerMoveController : MonoBehaviour {
                 moveLeft.StartMoveTimer();
             }
         }
-        else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp && !topColliderScript.isCollided)
+        else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp)
         {
-            if (isGrounded && !jump.OtherMoveIsMoving())
+            if (isGrounded && !jump.OtherMoveIsMoving() && !topColliderScript.isCollided)
             {
                 Debug.Log("Jump");
                 playerRigidbody.velocity = new Vector3(0, jumpPower, 0);
