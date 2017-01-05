@@ -29,11 +29,21 @@ public class PlayerMoveController : MonoBehaviour {
     private Rigidbody playerRigidbody;
     private bool isGrounded;
     public float jumpPower = 5f;
+
+    public GameObject leftCollider;
+    public GameObject rightCollider;
+    public GameObject topCollider;
+    private SideCollider rightColliderScript;
+    private SideCollider leftColliderScript;
+    private SideCollider topColliderScript;
     void Awake()
     {
         CapsuleHandSwipes_L = CapsuleHand_L.GetComponent<Swipes>();
         CapsuleHandSwipes_R = CapsuleHand_R.GetComponent<Swipes>();
         playerRigidbody = GetComponent<Rigidbody>();
+        rightColliderScript = rightCollider.GetComponent<SideCollider>();
+        leftColliderScript = leftCollider.GetComponent<SideCollider>();
+        topColliderScript = topCollider.GetComponent<SideCollider>();
     }
     void Start () {
         InitMoveList();
@@ -98,7 +108,7 @@ public class PlayerMoveController : MonoBehaviour {
     {
         if (CapsuleHandSwipes_L.IsSwipingRight && CapsuleHandSwipes_R.IsSwipingRight)
         {
-            if (!moveRight.isMoving && !transform.position.x.Equals(1) && !moveRight.OtherMoveIsMoving())
+            if (!moveRight.isMoving && !transform.position.x.Equals(1) && !moveRight.OtherMoveIsMoving() && !rightColliderScript.isCollided)
             {
                 Debug.Log("MoveRight");
                 ChangeNewLanePosX(1);
@@ -109,7 +119,7 @@ public class PlayerMoveController : MonoBehaviour {
         }
         else if (CapsuleHandSwipes_L.IsSwipingLeft && CapsuleHandSwipes_R.IsSwipingLeft)
         {
-            if (!moveLeft.isMoving && !transform.position.x.Equals(-1) && !moveLeft.OtherMoveIsMoving())
+            if (!moveLeft.isMoving && !transform.position.x.Equals(-1) && !moveLeft.OtherMoveIsMoving() && !leftColliderScript.isCollided)
             {
                 Debug.Log("MoveLeft");
                 ChangeNewLanePosX(-1);
@@ -117,7 +127,7 @@ public class PlayerMoveController : MonoBehaviour {
                 moveLeft.StartMoveTimer();
             }
         }
-        else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp)
+        else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp && !topColliderScript.isCollided)
         {
             if (isGrounded && !jump.OtherMoveIsMoving())
             {
