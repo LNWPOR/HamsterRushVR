@@ -129,13 +129,14 @@ public class PlayerMoveController : MonoBehaviour {
 
         }
         else if (CapsuleHandSwipes_L.IsSwipingDown && CapsuleHandSwipes_R.IsSwipingDown)
-        {
+        {   /*
             if (!slide.isMoving && isGrounded && !slide.OtherMoveIsMoving())
             {
                 Debug.Log("Slide");
                 slide.isMoving = true;
                 slide.StartMoveTimer();
             }
+            */
         }
     }
     void OnCollisionStay(Collision other)
