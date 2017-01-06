@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class PlayerHPUIController : MonoBehaviour {
 
     public Text hpText;
-    public GameObject player;
-
+    private GameObject player;
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 	void Update () {
         hpText.text = "HP : " + player.GetComponent<PlayerHPController>().playerCurrentHP.ToString();
     }
