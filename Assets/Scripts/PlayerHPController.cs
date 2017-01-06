@@ -6,17 +6,15 @@ public class PlayerHPController : MonoBehaviour {
 
     public int playerLimitHP = 5;
     public int playerCurrentHP;
-	
+
+    PlayerMoveController playerMoveControllerScript;
+    void Awake()
+    {
+        playerMoveControllerScript = gameObject.GetComponent<PlayerMoveController>();
+    }
 	void Start () {
         playerCurrentHP = playerLimitHP;
     }
-
-	void Update () {
-        if (playerCurrentHP.Equals(0))
-        {
-            Debug.Log("GameOver");
-        }	
-	}
     public void DecresePlayerHP(int damage)
     {
         if (playerCurrentHP - damage < 0)
@@ -25,6 +23,7 @@ public class PlayerHPController : MonoBehaviour {
         }else
         {
             playerCurrentHP -= damage;
+            playerMoveControllerScript.KnockBack();
         }
     }
     public void IncresePlayerHP(int heal)
