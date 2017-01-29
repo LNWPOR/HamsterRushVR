@@ -4,13 +4,17 @@ using System.Collections.Generic;
 
 public class PlayerMoveController : MonoBehaviour {
 
-    public GameObject CapsuleHand_L;
+    public GameObject CapsuleHand_L_LM;
+    public GameObject CapsuleHand_L_VR;
     private Swipes CapsuleHandSwipes_L;
-    public GameObject CapsuleHand_R;
+    public GameObject CapsuleHand_R_LM;
+    public GameObject CapsuleHand_R_VR;
     private Swipes CapsuleHandSwipes_R;
 
     //public float movingTimeLimit = 0.8f;
     //public float movingTimeCurrent = 0f;
+
+    public bool isVRmode = false;
 
     public float changeLaneTimerLimit = 0.8f;
     public float slideTimerLimit = 1f;
@@ -43,8 +47,7 @@ public class PlayerMoveController : MonoBehaviour {
     //private SideCollider bottomColliderScript;
     void Awake()
     {
-        CapsuleHandSwipes_L = CapsuleHand_L.GetComponent<Swipes>();
-        CapsuleHandSwipes_R = CapsuleHand_R.GetComponent<Swipes>();
+        InitCapsuleHand();
         playerRigidbody = GetComponent<Rigidbody>();
         rightColliderScript = rightCollider.GetComponent<SideCollider>();
         leftColliderScript = leftCollider.GetComponent<SideCollider>();
@@ -55,6 +58,20 @@ public class PlayerMoveController : MonoBehaviour {
         InitMoveList();
         moveForward.isMoving = true;
         playerSpeed = playerStartSpeed;
+    }
+
+    private void InitCapsuleHand()
+    {
+        if (isVRmode)
+        {
+            CapsuleHandSwipes_L = CapsuleHand_L_VR.GetComponent<Swipes>();
+            CapsuleHandSwipes_R = CapsuleHand_R_VR.GetComponent<Swipes>();
+        }
+        else
+        {
+            CapsuleHandSwipes_L = CapsuleHand_L_LM.GetComponent<Swipes>();
+            CapsuleHandSwipes_R = CapsuleHand_R_LM.GetComponent<Swipes>();
+        }
     }
     private void InitMoveList()
     {
