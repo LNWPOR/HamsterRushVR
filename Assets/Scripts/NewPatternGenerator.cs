@@ -5,7 +5,7 @@ using UnityEngine;
 public class NewPatternGenerator : MonoBehaviour {
 
     public GameObject[] patterns;
-
+    public Transform currentPlaneRef;
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Player"))
@@ -13,8 +13,7 @@ public class NewPatternGenerator : MonoBehaviour {
             int nextPatternIndex = (int)Mathf.Round(Random.Range(0, patterns.Length));
             Transform stage = transform.parent.parent;
             Transform currentPattern = transform.parent;
-            Transform currentPlane = currentPattern.GetChild(0);
-            Vector3 newPatternPoint = new Vector3(0, 0, currentPlane.GetComponent<MeshRenderer>().bounds.size.z + currentPlane.position.z);
+            Vector3 newPatternPoint = new Vector3(0, 0, currentPlaneRef.GetComponent<MeshRenderer>().bounds.size.z + currentPlaneRef.position.z);
             GameObject newGeneratePattern = Instantiate(patterns[nextPatternIndex], newPatternPoint, Quaternion.identity) as GameObject;
             newGeneratePattern.transform.parent = stage;
             newGeneratePattern.name = patterns[nextPatternIndex].gameObject.name;
