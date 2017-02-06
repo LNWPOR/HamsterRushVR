@@ -28,14 +28,20 @@ public class PlayerMoveController : MonoBehaviour {
     public PlayerMoveData slide;
     public PlayerMoveData knockBack;
 
-    public float playerStartSpeed = 2f;
-    public float playerSpeed;
+    public float playerStartSpeed = 5f;
+    public float playerCurrentSpeed;
+    public float playerSpeedLimit = 20f;
+    public float playerSpeedUpPercent = 1.2f;
+    private float playerPreviousSpeed;
 
     private float newLanePosX;
 
     private Rigidbody playerRigidbody;
     private bool isGrounded;
     public float jumpPower = 5f;
+
+    private float playerPreviousScore = 0f;
+    public float rangeScoreSpeedUp = 200f;
 
     public GameObject leftCollider;
     public GameObject rightCollider;
@@ -57,7 +63,8 @@ public class PlayerMoveController : MonoBehaviour {
     void Start () {
         InitMoveList();
         moveForward.isMoving = true;
-        playerSpeed = playerStartSpeed;
+        playerCurrentSpeed = playerStartSpeed;
+        playerPreviousSpeed = playerStartSpeed;
     }
 
     private void InitCapsuleHand()
@@ -135,7 +142,19 @@ public class PlayerMoveController : MonoBehaviour {
         {
             moveForward.isMoving = true;
             Vector3 newPos = transform.position;
-            newPos.z += Time.deltaTime * playerSpeed;
+            float playerCurrentScore = GetComponent<PlayerScoreController>().playerCurrentScore;
+            if ((playerCurrentScore - playerPreviousScore).Equals(rangeScoreSpeedUp))
+            {
+                playerPreviousScore += rangeScoreSpeedUp;
+                if (playerCurrentSpeed*playerSpeedUpPercent > playerSpeedLimit)
+                {
+                    playerCurrentSpeed = playerSpeedLimit;
+                }else
+                {
+                    playerCurrentSpeed *= playerSpeedUpPercent;
+                }
+            }
+            newPos.z += Time.deltaTime * playerCurrentSpeed;
             transform.position = newPos;
         }
     }
@@ -145,7 +164,7 @@ public class PlayerMoveController : MonoBehaviour {
         {
             if (!moveRight.isMoving && !transform.position.x.Equals(1) && !moveRight.OtherMoveIsMoving() && !rightColliderScript.isCollided)
             {
-                Debug.Log("MoveRight");
+                //Debug.Log("MoveRight");
                 ChangeNewLanePosX(1);
                 moveRight.isMoving = true;
                 moveRight.StartMoveTimer();
@@ -156,7 +175,7 @@ public class PlayerMoveController : MonoBehaviour {
         {
             if (!moveLeft.isMoving && !transform.position.x.Equals(-1) && !moveLeft.OtherMoveIsMoving() && !leftColliderScript.isCollided)
             {
-                Debug.Log("MoveLeft");
+                //Debug.Log("MoveLeft");
                 ChangeNewLanePosX(-1);
                 moveLeft.isMoving = true;
                 moveLeft.StartMoveTimer();
@@ -166,30 +185,37 @@ public class PlayerMoveController : MonoBehaviour {
         {
             if (isGrounded && !jump.OtherMoveIsMoving() && !topColliderScript.isCollided)
             {
-                Debug.Log("Jump");
+                //Debug.Log("Jump");
                 playerRigidbody.velocity = new Vector3(0, jumpPower, 0);
                 isGrounded = false;
                 jump.isMoving = true;
+                playerPreviousSpeed = playerCurrentSpeed;
+                playerCurrentSpeed = playerStartSpeed;
             }
 
-        }
+        }/*
         else if (CapsuleHandSwipes_L.IsSwipingDown && CapsuleHandSwipes_R.IsSwipingDown)
-        {   /*
+        {   
             if (!slide.isMoving && isGrounded && !slide.OtherMoveIsMoving())
             {
                 Debug.Log("Slide");
                 slide.isMoving = true;
                 slide.StartMoveTimer();
             }
-            */
+            
         }
+        */
     }
     void OnCollisionStay(Collision other)
     {
         if (other.gameObject.tag.Equals("Ground"))
         {
             isGrounded = true;
-            jump.isMoving = false;
+            if (jump.isMoving)
+            {
+                jump.isMoving = false;
+                playerCurrentSpeed = playerPreviousSpeed;
+            }
         }
     }
 
@@ -200,5 +226,6 @@ public class PlayerMoveController : MonoBehaviour {
         isGrounded = false;
         Vector3 newPos = new Vector3(0, 6, transform.position.z - 6);
         transform.position = newPos;
+        playerCurrentSpeed = playerStartSpeed;
     }
 }
