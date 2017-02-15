@@ -1,37 +1,40 @@
 fileFormatVersion: 2
 guid: 6049c303dbfb9974fa47398e6aaaf46e
-timeCreated: 1483453736
+timeCreated: 1487160936
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Armature
-    100002: Bone
-    100004: Bone_001
-    100006: Bone_002
-    100008: Bone_003
-    100010: Bone_004
-    100012: Bone_005
-    100014: Bone_006
-    100016: Bone_007
-    100018: //RootNode
-    100020: Plane
-    400000: Armature
-    400002: Bone
-    400004: Bone_001
-    400006: Bone_002
-    400008: Bone_003
-    400010: Bone_004
-    400012: Bone_005
-    400014: Bone_006
-    400016: Bone_007
-    400018: //RootNode
-    400020: Plane
-    2300000: Plane
-    3300000: Plane
-    4300000: Plane
+    100000: ArmatureBody
+    100002: body
+    100004: Bone
+    100006: Bone_001
+    100008: Bone_002
+    100010: Bone_003
+    100012: Bone_004
+    100014: Bone_005
+    100016: Bone_006
+    100018: Bone_008
+    100020: //RootNode
+    400000: ArmatureBody
+    400002: body
+    400004: Bone
+    400006: Bone_001
+    400008: Bone_002
+    400010: Bone_003
+    400012: Bone_004
+    400014: Bone_005
+    400016: Bone_006
+    400018: Bone_008
+    400020: //RootNode
+    4300000: body
     7400000: Default Take
+    7400002: IdleAnim
+    7400004: JumpAnim
+    7400006: RunningAnim
+    7400008: DieAnim
     9500000: //RootNode
+    13700000: body
   materials:
     importMaterials: 1
     materialName: 0
