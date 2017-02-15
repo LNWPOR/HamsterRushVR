@@ -12,6 +12,6 @@ public class PlayerScoreUIController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	void Update () {
-        ScoreText.text = "Scores : " + player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
+        ScoreText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
 	}
 }

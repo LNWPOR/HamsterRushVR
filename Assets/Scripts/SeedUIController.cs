@@ -16,6 +16,6 @@ public class SeedUIController : MonoBehaviour {
         playerUltimateControllerScript = player.GetComponent<PlayerUltimateController>();
 	}
 	void Update () {
-        seedText.text = "Seeds : " + playerUltimateControllerScript.currentUltiPoint;	
+        seedText.text = playerUltimateControllerScript.currentUltiPoint.ToString();	
 	}
 }

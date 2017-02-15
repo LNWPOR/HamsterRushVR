@@ -12,6 +12,6 @@ public class PlayerHPUIController : MonoBehaviour {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	void Update () {
-        hpText.text = "HP : " + player.GetComponent<PlayerHPController>().playerCurrentHP.ToString();
+        hpText.text = "x " + player.GetComponent<PlayerHPController>().playerCurrentHP.ToString();
     }
 }
