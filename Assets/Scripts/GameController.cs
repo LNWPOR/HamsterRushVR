@@ -8,6 +8,8 @@ public class GameController : MonoBehaviour {
     private GameObject player;
     private PlayerHPController playerHPControllerScript;
 
+    public GameObject gameOverPanel;
+
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -24,6 +26,7 @@ public class GameController : MonoBehaviour {
 
     private void GameOver()
     {
-        SceneManager.LoadScene("GameOver");
+        //SceneManager.LoadScene("GameOver");
+        gameOverPanel.SetActive(true);
     }
 }

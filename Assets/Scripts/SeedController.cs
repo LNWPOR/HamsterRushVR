@@ -20,7 +20,7 @@ public class SeedController : MonoBehaviour {
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            PlayerUltimateController playerUltimateContrllerScript = other.gameObject.GetComponent<PlayerUltimateController>();
+            PlayerSeedController playerUltimateContrllerScript = other.gameObject.GetComponent<PlayerSeedController>();
             playerUltimateContrllerScript.IncreseUltiPoint(seedPoint);
             Destroy(gameObject);
         }
