@@ -4,12 +4,14 @@ using System.Collections.Generic;
 
 public class PlayerMoveController : MonoBehaviour {
 
-    public GameObject CapsuleHand_L_LM;
-    public GameObject CapsuleHand_L_VR;
-    private Swipes CapsuleHandSwipes_L;
     public GameObject CapsuleHand_R_LM;
+    public GameObject CapsuleHand_L_LM;
+    
     public GameObject CapsuleHand_R_VR;
+    public GameObject CapsuleHand_L_VR;
+
     private Swipes CapsuleHandSwipes_R;
+    private Swipes CapsuleHandSwipes_L;
 
     //public float movingTimeLimit = 0.8f;
     //public float movingTimeCurrent = 0f;
