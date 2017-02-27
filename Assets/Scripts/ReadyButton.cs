@@ -34,8 +34,8 @@ public class ReadyButton : MonoBehaviour {
             if (result.GetField("status").ToString().Equals("1"))
             {
                 //Debug.Log("Sign in success.");
-                string id = result.GetField("player").GetField("_id").ToString();
-                string name = result.GetField("player").GetField("name").ToString();
+                string id = Converter.JsonToString(result.GetField("player").GetField("_id").ToString());
+                string name = Converter.JsonToString(result.GetField("player").GetField("name").ToString());
                 GameManager.Instance.playerData = new PlayerData(id, name);
                 SceneManager.LoadScene("Menu");
             }

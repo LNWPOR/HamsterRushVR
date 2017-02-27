@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
             if (_instance == null)
             {
                 _instance = new GameObject("GameManager").AddComponent<GameManager>();
+
             }
             return _instance;
         }
@@ -22,12 +23,7 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-    }
-    void Start()
-    {
         playerData = new PlayerData("1", "LNWPOR");
-
-        
+        DontDestroyOnLoad(gameObject);
     }
 }
