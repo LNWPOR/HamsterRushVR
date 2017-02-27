@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
-        playerData = new PlayerData("1", "LNWPOR");
+        playerData = new PlayerData("58b46ac0dafcde22a4bce7bd", "LNWPOR");
         DontDestroyOnLoad(gameObject);
     }
 }

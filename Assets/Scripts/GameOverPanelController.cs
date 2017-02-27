@@ -3,92 +3,62 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+using System.Net;
 
 public class GameOverPanelController : MonoBehaviour {
 
     private GameObject player;
     public Text scoresText;
     public Text seedsText;
-
-    public GameObject CapsuleHand_R_LM;
-    public GameObject CapsuleHand_L_LM;
-    public GameObject CapsuleHand_R_VR;
-    public GameObject CapsuleHand_L_VR;
-    private Swipes CapsuleHandSwipes_R;
-    private Swipes CapsuleHandSwipes_L;
-    private bool isVRmode;
-
-    public float movingTimeLimit = 0.8f;
-    public PlayerMoveData moveDown;
-    public PlayerMoveData moveUp;
-
     void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        isVRmode = player.GetComponent<PlayerMoveController>().isVRmode;
-        InitCapsuleHand();
     }
-
-    void Start () {
+    void Start()
+    {
         scoresText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
         seedsText.text = player.GetComponent<PlayerSeedController>().playerCurrentSeed.ToString();
-        InitMoveList();
-
+        AddScoreSeed();
+        
     }
-    private void InitMoveList()
+    public void OnClickRestart()
     {
-        moveUp = new PlayerMoveData("MoveUp");
-        moveDown = new PlayerMoveData("MoveDown");
-
-        moveUp.InitOtherMoveStopList(new List<PlayerMoveData> { moveDown });
-        moveDown.InitOtherMoveStopList(new List<PlayerMoveData> { moveUp });
-
-        moveUp.InitTimerLimit(movingTimeLimit);
-        moveDown.InitTimerLimit(movingTimeLimit);
+        SceneManager.LoadScene("GamePlay");
     }
-
-    private void InitCapsuleHand()
+    public void OnClickMenu()
     {
-        if (isVRmode)
+        SceneManager.LoadScene("Menu");
+    }
+    private void AddScoreSeed()
+    {
+        var webAddr = GameManager.Instance.URL + "/api/players/" + GameManager.Instance.playerData.id;
+        var req = (HttpWebRequest)WebRequest.Create(webAddr);
+        req.ContentType = "application/json; charset=utf-8";
+        req.Method = "PUT";
+
+        using (var streamWriter = new StreamWriter(req.GetRequestStream()))
         {
-            CapsuleHandSwipes_L = CapsuleHand_L_VR.GetComponent<Swipes>();
-            CapsuleHandSwipes_R = CapsuleHand_R_VR.GetComponent<Swipes>();
+            JSONObject data = new JSONObject();
+            data.AddField("scores", scoresText.text);
+            data.AddField("seeds", seedsText.text);
+            streamWriter.Write(data.ToString());
+            streamWriter.Flush();
         }
-        else
-        {
-            CapsuleHandSwipes_L = CapsuleHand_L_LM.GetComponent<Swipes>();
-            CapsuleHandSwipes_R = CapsuleHand_R_LM.GetComponent<Swipes>();
-        }
-    }
 
-    void Update () {
-        CheckMoveTrigger();
-        WaitAllMovingTimer();
-    }
-    private void WaitAllMovingTimer()
-    {
-        moveUp.WaitMovingTimer();
-    }
-    private void CheckMoveTrigger()
-    {
-        if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp)
+        var response = (HttpWebResponse)req.GetResponse();
+        using (var streamReader = new StreamReader(response.GetResponseStream()))
         {
-            if (!moveUp.isMoving && !moveUp.OtherMoveIsMoving())
+            JSONObject result = new JSONObject(streamReader.ReadToEnd());
+            if (result.GetField("status").ToString().Equals("1"))
             {
-                moveUp.isMoving = true;
-                moveUp.StartMoveTimer();
-                Debug.Log("MoveUp");
-                SceneManager.LoadScene("GamePlay");
+                //Debug.Log("collect score success");
+                //Debug.Log(result);
             }
-
-        }
-        else if (CapsuleHandSwipes_L.IsSwipingDown && CapsuleHandSwipes_R.IsSwipingDown)
-        {
-            if (!moveDown.isMoving && !moveDown.OtherMoveIsMoving())
+            else
             {
-                moveDown.isMoving = true;
-                moveDown.StartMoveTimer();
-                Debug.Log("MoveDown");
+                //error
+                Debug.Log(result);
             }
 
         }

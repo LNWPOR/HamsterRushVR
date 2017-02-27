@@ -7,8 +7,7 @@ public class GameController : MonoBehaviour {
     private GameObject player;
     private PlayerHPController playerHPControllerScript;
 
-    public GameObject gameOverPanelVR;
-    public GameObject gameOverPanelLM;
+    public GameObject gameOverCanvas;
 
     private bool gameIsOver = false;
     public float tempDieAnimTime = 3f; //Note change this to equal the player dieAnim time later
@@ -39,13 +38,8 @@ public class GameController : MonoBehaviour {
     }
     private void GameOver()
     {
-        if (player.GetComponent<PlayerMoveController>().isVRmode)
-        {
-            gameOverPanelVR.SetActive(true);
-        }else
-        {
-            gameOverPanelLM.SetActive(true);
-        }
+        gameOverCanvas.SetActive(true);
+
         
     }
 }
