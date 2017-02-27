@@ -36,7 +36,7 @@ public class Converter {
 
 		float newFloat = 0;
 		string[] newString = Regex.Split(target,"\"");
-		newFloat = float.Parse(newString[1]);
+		newFloat = float.Parse(newString[0]);
 
 		return newFloat;
 

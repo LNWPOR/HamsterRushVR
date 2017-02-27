@@ -36,7 +36,9 @@ public class ReadyButton : MonoBehaviour {
                 //Debug.Log("Sign in success.");
                 string id = Converter.JsonToString(result.GetField("player").GetField("_id").ToString());
                 string name = Converter.JsonToString(result.GetField("player").GetField("name").ToString());
-                GameManager.Instance.playerData = new PlayerData(id, name);
+                float scores = Converter.JsonToFloat(result.GetField("player").GetField("scores").ToString());
+                float seeds = Converter.JsonToFloat(result.GetField("player").GetField("seeds").ToString());
+                GameManager.Instance.playerData = new PlayerData(id, name, scores, seeds);
                 SceneManager.LoadScene("Menu");
             }
             else 
