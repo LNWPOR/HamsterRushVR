@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour {
     }
     void Start()
     {
-        playerData = new PlayerData("LNWPOR");
+        playerData = new PlayerData("1", "LNWPOR");
 
         
     }

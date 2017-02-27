@@ -13,7 +13,6 @@ public class ReadyButton : MonoBehaviour {
     public void OnClickReady()
     {
         //Debug.Log(playerName.text);
-        
 
         var webAddr = GameManager.Instance.URL + "/api/players";
         var req = (HttpWebRequest)WebRequest.Create(webAddr);
@@ -22,24 +21,28 @@ public class ReadyButton : MonoBehaviour {
 
         using (var streamWriter = new StreamWriter(req.GetRequestStream()))
         {
-            string json = "{\"name\":\"" + playerName.text + "\"}";
-            streamWriter.Write(json);
+            JSONObject data = new JSONObject();
+            data.AddField("name",playerName.text);
+            streamWriter.Write(data.ToString());
             streamWriter.Flush();
         }
 
         var response = (HttpWebResponse)req.GetResponse();
         using (var streamReader = new StreamReader(response.GetResponseStream()))
         {
-            var result = streamReader.ReadToEnd();
-            if (result.ToString().Equals("1"))
+            JSONObject result = new JSONObject(streamReader.ReadToEnd());
+            if (result.GetField("status").ToString().Equals("1"))
             {
                 //Debug.Log("Sign in success.");
-                GameManager.Instance.playerData = new PlayerData(playerName.text);
+                string id = result.GetField("player").GetField("_id").ToString();
+                string name = result.GetField("player").GetField("name").ToString();
+                GameManager.Instance.playerData = new PlayerData(id, name);
                 SceneManager.LoadScene("Menu");
             }
-            else if(result.ToString().Equals("0"))
+            else 
             {
-                Debug.Log("Already have Player with this name. Please use other name.");
+                //error
+                Debug.Log(result);
             }
             
         }
