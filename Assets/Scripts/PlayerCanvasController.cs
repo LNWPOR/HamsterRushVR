@@ -15,4 +15,5 @@ public class PlayerCanvasController : MonoBehaviour {
     {
         SceneManager.LoadScene("GamePlay");
     }
+
 }

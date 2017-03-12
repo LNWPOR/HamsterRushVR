@@ -7,8 +7,8 @@ public class PlayerMoveController : MonoBehaviour {
     public GameObject CapsuleHand_R_LM;
     public GameObject CapsuleHand_L_LM;
     
-    public GameObject CapsuleHand_R_VR;
-    public GameObject CapsuleHand_L_VR;
+    private GameObject CapsuleHand_R_VR;
+    private GameObject CapsuleHand_L_VR;
 
     private Swipes CapsuleHandSwipes_R;
     private Swipes CapsuleHandSwipes_L;
@@ -73,8 +73,14 @@ public class PlayerMoveController : MonoBehaviour {
     {
         if (isVRmode)
         {
-            CapsuleHandSwipes_L = CapsuleHand_L_VR.GetComponent<Swipes>();
-            CapsuleHandSwipes_R = CapsuleHand_R_VR.GetComponent<Swipes>();
+            if (GameManager.Instance.trinusLeapSetupIsSet)
+            {
+                GameManager.Instance.trinusLeapSetupIsSet.transform.parent = gameObject.transform;
+                GameManager.Instance.trinusLeapSetupIsSet.transform.position = transform.position;
+            }
+            HandModelsController handModelsController = GameObject.Find("HandModels").GetComponent<HandModelsController>();
+            CapsuleHandSwipes_L = handModelsController.capL.GetComponent<Swipes>();
+            CapsuleHandSwipes_R = handModelsController.capR.GetComponent<Swipes>();
         }
         else
         {

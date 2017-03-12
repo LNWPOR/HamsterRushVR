@@ -7,15 +7,15 @@ public class SeedUIController : MonoBehaviour {
 
     public Text seedText;
     private GameObject player;
-    private PlayerSeedController playerUltimateControllerScript;
-    void Awake()
+    private PlayerSeedController playerSeedControllerScript;
+    void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	void Start () {
-        playerUltimateControllerScript = player.GetComponent<PlayerSeedController>();
+        playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
 	}
 	void Update () {
-        seedText.text = playerUltimateControllerScript.playerCurrentSeed.ToString();	
+        seedText.text = playerSeedControllerScript.playerCurrentSeed.ToString();	
 	}
 }

@@ -7,11 +7,12 @@ public class PlayerScoreUIController : MonoBehaviour {
 
     public Text ScoreText;
     public GameObject player;
-    void Awake()
+    void OnEnable()
     {
         player = GameObject.FindGameObjectWithTag("Player");
     }
 	void Update () {
         ScoreText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
 	}
+    
 }

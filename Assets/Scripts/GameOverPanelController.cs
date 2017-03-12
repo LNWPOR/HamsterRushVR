@@ -20,14 +20,16 @@ public class GameOverPanelController : MonoBehaviour {
         scoresText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
         seedsText.text = player.GetComponent<PlayerSeedController>().playerCurrentSeed.ToString();
         AddScoreSeed();
-        
+        GameManager.Instance.gamePage.GetComponent<GamePageController>().gamePlayPanelVR.SetActive(false);
     }
     public void OnClickRestart()
     {
+        GameManager.Instance.trinusLeapSetupIsSet.transform.parent = GameManager.Instance.transform;
         SceneManager.LoadScene("GamePlay");
     }
     public void OnClickMenu()
     {
+        GameManager.Instance.trinusLeapSetupIsSet.transform.parent = GameManager.Instance.transform;
         SceneManager.LoadScene("Menu");
     }
     private void AddScoreSeed()
