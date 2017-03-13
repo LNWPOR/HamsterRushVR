@@ -6,7 +6,7 @@ public class MenuController : MonoBehaviour {
 
     public GameObject leapEventSystem;
     public GameObject trinusLeapSetup;
-    public GameObject isVRmode;
+    public bool isVRmode;
 	void Awake()
     {
         if (isVRmode)
