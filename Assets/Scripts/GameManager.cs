@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour {
     public PlayerData playerData;
     public GameObject trinusLeapSetupIsSet;
     public GameObject gamePage;
+    public int characterType;
     private static GameManager _instance;
     public static GameManager Instance
     {
@@ -25,6 +26,7 @@ public class GameManager : MonoBehaviour {
     void Awake()
     {
         playerData = new PlayerData("58b46ac0dafcde22a4bce7bd", "LNWPOR", 0, 0);
+        characterType = 0;
         DontDestroyOnLoad(gameObject);
     }
 
