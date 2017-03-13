@@ -4,19 +4,14 @@ using System.Collections.Generic;
 
 public class PlayerMoveController : MonoBehaviour {
 
-    public GameObject CapsuleHand_R_LM;
-    public GameObject CapsuleHand_L_LM;
-    
-    private GameObject CapsuleHand_R_VR;
-    private GameObject CapsuleHand_L_VR;
+    private GameObject CapsuleHand_R;
+    private GameObject CapsuleHand_L;
 
     private Swipes CapsuleHandSwipes_R;
     private Swipes CapsuleHandSwipes_L;
 
     //public float movingTimeLimit = 0.8f;
     //public float movingTimeCurrent = 0f;
-
-    public bool isVRmode = false;
 
     public float changeLaneTimerLimit = 0.8f;
     public float slideTimerLimit = 1f;
@@ -55,7 +50,7 @@ public class PlayerMoveController : MonoBehaviour {
     //private SideCollider bottomColliderScript;
     void Awake()
     {
-        InitCapsuleHand();
+        
         playerRigidbody = GetComponent<Rigidbody>();
         rightColliderScript = rightCollider.GetComponent<SideCollider>();
         leftColliderScript = leftCollider.GetComponent<SideCollider>();
@@ -63,30 +58,18 @@ public class PlayerMoveController : MonoBehaviour {
         //bottomColliderScript = bottomCollider.GetComponent<SideCollider>();
     }
     void Start () {
+        InitCapsuleHandSwipes();
         InitMoveList();
         moveForward.isMoving = true;
         playerCurrentSpeed = playerStartSpeed;
         playerPreviousSpeed = playerStartSpeed;
     }
 
-    private void InitCapsuleHand()
+    private void InitCapsuleHandSwipes()
     {
-        if (isVRmode)
-        {
-            if (GameManager.Instance.trinusLeapSetupIsSet)
-            {
-                GameManager.Instance.trinusLeapSetupIsSet.transform.parent = gameObject.transform;
-                GameManager.Instance.trinusLeapSetupIsSet.transform.position = transform.position;
-            }
-            HandModelsController handModelsController = GameObject.Find("HandModels").GetComponent<HandModelsController>();
-            CapsuleHandSwipes_L = handModelsController.capL.GetComponent<Swipes>();
-            CapsuleHandSwipes_R = handModelsController.capR.GetComponent<Swipes>();
-        }
-        else
-        {
-            CapsuleHandSwipes_L = CapsuleHand_L_LM.GetComponent<Swipes>();
-            CapsuleHandSwipes_R = CapsuleHand_R_LM.GetComponent<Swipes>();
-        }
+        PlayerController playerControllerScript = GetComponent<PlayerController>();
+        CapsuleHandSwipes_L = playerControllerScript.CapsuleHand_L.GetComponent<Swipes>();
+        CapsuleHandSwipes_R = playerControllerScript.CapsuleHand_R.GetComponent<Swipes>();
     }
     private void InitMoveList()
     {
