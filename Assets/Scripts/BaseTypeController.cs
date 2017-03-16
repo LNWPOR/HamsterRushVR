@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BaseTypeController : MonoBehaviour {
+    public int type;
     public GameObject CapsuleHand_R;
     public GameObject CapsuleHand_L;
     public GameObject body;

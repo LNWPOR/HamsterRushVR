@@ -3,7 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SwordManController : BaseTypeController{
-    private int type = 0;
+    private bool handIsHolding = false;
+    public bool HandIsHolding
+    {
+        get
+        {
+            return handIsHolding;
+        }
+        set
+        {
+            handIsHolding = value;
+        }
+    }
     void Awake()
     {
         AwakeType(type);
@@ -12,5 +23,15 @@ public class SwordManController : BaseTypeController{
     {
         SetCapsuleHand();
         SetWeaponParent();
+    }
+    private void Update()
+    {
+        if (handIsHolding)
+        {
+            weapon.SetActive(true);
+        }else
+        {
+            weapon.SetActive(false);
+        }
     }
 }
