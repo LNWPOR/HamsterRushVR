@@ -9,6 +9,11 @@ public class CharacterPanelController : MonoBehaviour {
     public GameObject[] typesModels;
     public Sprite normalButton;
     public Sprite pressButton;
+    void Awake()
+    {
+        ChangeButtonImage(GameManager.Instance.characterType);
+        ChangeTypeModel(GameManager.Instance.characterType);
+    }
     public void OnClickCharacterButton(int type)
     {
         GameManager.Instance.characterType = type;
