@@ -11,8 +11,8 @@ public class RankingCanvasController : MonoBehaviour {
     public GameObject[] ranks;
     private List<PlayerData> playerList;
 	// Use this for initialization
-	void Start () {
-        InitRanking();
+	void Awake () {
+        //InitRanking();
     }
 	
     private void InitRanking()

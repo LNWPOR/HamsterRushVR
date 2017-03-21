@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerCanvasController : MonoBehaviour {
     public Text playerName;
 
-    void Start()
+    void Awake()
     {
         playerName.text = GameManager.Instance.playerData.name;
     }

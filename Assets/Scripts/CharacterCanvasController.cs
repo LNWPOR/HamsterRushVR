@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterPanelController : MonoBehaviour {
+public class CharacterCanvasController : MonoBehaviour {
 
     public Button[] characterButton;
     public GameObject[] typesModels;
