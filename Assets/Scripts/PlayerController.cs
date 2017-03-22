@@ -9,22 +9,25 @@ public class PlayerController : MonoBehaviour {
     public GameObject HandAttachments_L;
     private HandModelsController handModelsController;
     public bool isVRmode = false;
+    public Transform mainCameraTransform;
     void Awake()
-    {
-        ChangeTrinusParent();
-        handModelsController = GameObject.Find("HandModels").GetComponent<HandModelsController>();
-        SetMainCapsuleHands();
-        SetMainHandAttachments();
-    }
-    void ChangeTrinusParent()
     {
         if (isVRmode)
         {
-            if (GameManager.Instance.trinusLeapSetupIsSet)
-            {
-                GameManager.Instance.trinusLeapSetupIsSet.transform.parent = gameObject.transform;
-                GameManager.Instance.trinusLeapSetupIsSet.transform.position = transform.position;
-            }
+            ChangeTrinusParent();
+            mainCameraTransform = GameObject.Find("TrinusCamera").transform;
+        }else
+        {
+            mainCameraTransform = GameObject.Find("LeapMotionCamera").transform;
+        }
+        HandSetup();
+    }
+    void ChangeTrinusParent()
+    {
+        if (GameManager.Instance.trinusLeapSetupIsSet)
+        {
+            GameManager.Instance.trinusLeapSetupIsSet.transform.parent = gameObject.transform;
+            GameManager.Instance.trinusLeapSetupIsSet.transform.position = transform.position;
         }
     }
     void SetMainCapsuleHands()
@@ -36,5 +39,11 @@ public class PlayerController : MonoBehaviour {
     {
         HandAttachments_R = handModelsController.HandR;
         HandAttachments_L = handModelsController.HandL;
+    }
+    void HandSetup()
+    {
+        handModelsController = GameObject.Find("HandModels").GetComponent<HandModelsController>();
+        SetMainCapsuleHands();
+        SetMainHandAttachments();
     }
 }

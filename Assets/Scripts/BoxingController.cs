@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MagicianController : BaseTypeController {
+public class BoxingController : BaseTypeController {
     void Awake()
     {
         AwakeType(type);

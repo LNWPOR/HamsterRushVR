@@ -18,6 +18,7 @@ public class PlayerMoveData {
     {
         otherMovingCheckList = newOtherMovingCheckList;
     }
+    /*
     public void InitTimerLimit(float newMoveTimerLimit)
     {
         moveTimerLimit = newMoveTimerLimit;
@@ -41,6 +42,7 @@ public class PlayerMoveData {
             }
         }
     }
+    */
 
     public bool OtherMoveIsMoving()
     {

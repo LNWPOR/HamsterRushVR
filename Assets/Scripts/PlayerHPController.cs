@@ -23,7 +23,7 @@ public class PlayerHPController : MonoBehaviour {
         }else
         {
             playerCurrentHP -= damage;
-            playerMoveControllerScript.KnockBack();
+            StartCoroutine(playerMoveControllerScript.KnockBack());
         }
     }
     public void IncresePlayerHP(int heal)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameOverController : MonoBehaviour {
-
+    /*
     public GameObject CapsuleHand_L;
     private Swipes CapsuleHandSwipes_L;
     public GameObject CapsuleHand_R;
@@ -82,5 +82,5 @@ public class GameOverController : MonoBehaviour {
         }
     }
 
-
+    */
 }

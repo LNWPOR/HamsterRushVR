@@ -4,23 +4,16 @@ using System.Collections.Generic;
 
 public class PlayerMoveController : MonoBehaviour {
 
-    private GameObject CapsuleHand_R;
-    private GameObject CapsuleHand_L;
+    private PlayerController playerControllerScript;
+    private Transform mainCamTransform;
+    private Vector3 newMovePos;
+    public float headCheckOffset = 3f;
 
-    private Swipes CapsuleHandSwipes_R;
-    private Swipes CapsuleHandSwipes_L;
-
-    //public float movingTimeLimit = 0.8f;
-    //public float movingTimeCurrent = 0f;
-
-    public float changeLaneTimerLimit = 0.8f;
-    public float slideTimerLimit = 1f;
     public float knockBackTimerLimit = 3f;
+    public float slidingSmooth = 0.05f;
 
     public List<PlayerMoveData> moveList = new List<PlayerMoveData>();
     public PlayerMoveData moveForward;
-    public PlayerMoveData moveRight;
-    public PlayerMoveData moveLeft;
     public PlayerMoveData jump;
     public PlayerMoveData slide;
     public PlayerMoveData knockBack;
@@ -31,8 +24,6 @@ public class PlayerMoveController : MonoBehaviour {
     public float playerSpeedUpPercent = 1.2f;
     private float playerPreviousSpeed;
 
-    private float newLanePosX;
-
     private Rigidbody playerRigidbody;
     private bool isGrounded;
     public float jumpPower = 5f;
@@ -40,183 +31,148 @@ public class PlayerMoveController : MonoBehaviour {
     private float playerPreviousScore = 0f;
     public float rangeScoreSpeedUp = 200f;
 
-    public GameObject leftCollider;
-    public GameObject rightCollider;
-    public GameObject topCollider;
-    public GameObject bottomCollider;
-    private SideCollider rightColliderScript;
-    private SideCollider leftColliderScript;
-    private SideCollider topColliderScript;
-    //private SideCollider bottomColliderScript;
+    public float maxSlope = 90f;
+    public float moveLRSentivity = 5f;
+    public float moveLRSmooth = 0.25f;
+
     void Awake()
     {
-        
+        playerControllerScript = GetComponent<PlayerController>();
         playerRigidbody = GetComponent<Rigidbody>();
-        rightColliderScript = rightCollider.GetComponent<SideCollider>();
-        leftColliderScript = leftCollider.GetComponent<SideCollider>();
-        topColliderScript = topCollider.GetComponent<SideCollider>();
-        //bottomColliderScript = bottomCollider.GetComponent<SideCollider>();
     }
     void Start () {
-        InitCapsuleHandSwipes();
         InitMoveList();
         moveForward.isMoving = true;
         playerCurrentSpeed = playerStartSpeed;
         playerPreviousSpeed = playerStartSpeed;
+        mainCamTransform = playerControllerScript.mainCameraTransform;
     }
-
-    private void InitCapsuleHandSwipes()
+    void Update()
     {
-        PlayerController playerControllerScript = GetComponent<PlayerController>();
-        CapsuleHandSwipes_L = playerControllerScript.CapsuleHand_L.GetComponent<Swipes>();
-        CapsuleHandSwipes_R = playerControllerScript.CapsuleHand_R.GetComponent<Swipes>();
-    }
-    private void InitMoveList()
-    {
-        moveForward = new PlayerMoveData("MoveForward");
-        moveRight = new PlayerMoveData("MoveRight");
-        moveLeft = new PlayerMoveData("MoveLeft");
-        jump = new PlayerMoveData("Jump");
-        slide = new PlayerMoveData("Slide");
-        knockBack = new PlayerMoveData("KnockBack");
-
-        moveForward.InitOtherMoveStopList(new List<PlayerMoveData> { knockBack });
-        moveRight.InitOtherMoveStopList(new List<PlayerMoveData> { moveLeft });
-        moveLeft.InitOtherMoveStopList(new List<PlayerMoveData> { moveRight });
-        jump.InitOtherMoveStopList(new List<PlayerMoveData> { slide });
-        slide.InitOtherMoveStopList(new List<PlayerMoveData> { jump });
-
-        moveRight.InitTimerLimit(changeLaneTimerLimit);
-        moveLeft.InitTimerLimit(changeLaneTimerLimit);
-        slide.InitTimerLimit(slideTimerLimit);
-        knockBack.InitTimerLimit(knockBackTimerLimit);
-
-        moveList.Add(moveForward);
-        moveList.Add(moveRight);
-        moveList.Add(moveLeft);
-        moveList.Add(jump);
-        moveList.Add(slide);
-        moveList.Add(knockBack);
-    }
-    void Update () {
-        MoveForward();
-        CheckIsChangeLane();
-        CheckMoveTrigger();
-        WaitAllMovingTimer();
-    }
-    private void CheckIsChangeLane()
-    {
-        if (moveRight.isMoving || moveLeft.isMoving)
+        //for testing in LeapMotion Mode
+        if (!playerControllerScript.isVRmode)
         {
-            ChangeLane(newLanePosX, changeLaneTimerLimit / (Mathf.Abs(transform.position.x - newLanePosX)));
+            float rotateX = Input.GetAxis("Mouse X") * moveLRSentivity;
+            float rotateY = Input.GetAxis("Mouse Y") * moveLRSentivity;
+            transform.Rotate(0,rotateX,0);
+            mainCamTransform.Rotate(-rotateY,0,0);
         }
+
+        //Debug.DrawRay(transform.position, mainCamTransform.forward * 50f, Color.green);
+        CheckMoveTrigger();
     }
-    private void WaitAllMovingTimer()
+    void FixedUpdate()
     {
-        moveRight.WaitMovingTimer();
-        moveLeft.WaitMovingTimer();
-        slide.WaitMovingTimer();
-        knockBack.WaitMovingTimer();
+        MoveForward();
+        MoveLR();
     }
-    public void ChangeLane(float newLanePosX, float fracJourney)
+    void MoveLR()
     {
-        Vector3 newLanePos = new Vector3(newLanePosX, transform.position.y, transform.position.z);
-        transform.position = Vector3.Lerp(transform.position, newLanePos, fracJourney);
-    }
-    public void ChangeNewLanePosX(float addPosX)
-    {
-        newLanePosX += addPosX;
+        newMovePos = transform.position + mainCamTransform.forward * 50f;
+        playerRigidbody.velocity = new Vector3((newMovePos.x - transform.position.x) * moveLRSmooth,
+                                                playerRigidbody.velocity.y,
+                                                playerRigidbody.velocity.z);
     }
     public void MoveForward()
     {
         if (!moveForward.OtherMoveIsMoving())
         {
             moveForward.isMoving = true;
-            Vector3 newPos = transform.position;
             float playerCurrentScore = GetComponent<PlayerScoreController>().playerCurrentScore;
             if ((playerCurrentScore - playerPreviousScore).Equals(rangeScoreSpeedUp))
             {
                 playerPreviousScore += rangeScoreSpeedUp;
-                if (playerCurrentSpeed*playerSpeedUpPercent > playerSpeedLimit)
+                if (playerCurrentSpeed * playerSpeedUpPercent > playerSpeedLimit)
                 {
                     playerCurrentSpeed = playerSpeedLimit;
-                }else
+                }
+                else
                 {
                     playerCurrentSpeed *= playerSpeedUpPercent;
                 }
             }
-            newPos.z += Time.deltaTime * playerCurrentSpeed;
-            transform.position = newPos;
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, playerRigidbody.velocity.y, playerCurrentSpeed);
         }
+    }
+    private void InitMoveList()
+    {
+        moveForward = new PlayerMoveData("MoveForward");
+        jump = new PlayerMoveData("Jump");
+        slide = new PlayerMoveData("Slide");
+        knockBack = new PlayerMoveData("KnockBack");
+
+        moveForward.InitOtherMoveStopList(new List<PlayerMoveData> { knockBack });
+        jump.InitOtherMoveStopList(new List<PlayerMoveData> { slide });
+        slide.InitOtherMoveStopList(new List<PlayerMoveData> { jump });
+
+        moveList.Add(moveForward);
+        moveList.Add(jump);
+        moveList.Add(slide);
+        moveList.Add(knockBack);
     }
     private void CheckMoveTrigger()
     {
-        if (CapsuleHandSwipes_L.IsSwipingRight && CapsuleHandSwipes_R.IsSwipingRight)
+        JumpListener();
+        SlideListener();
+        
+    }
+    void JumpListener()
+    {
+        if (newMovePos.y > mainCamTransform.position.y + headCheckOffset)
         {
-            if (!moveRight.isMoving && !transform.position.x.Equals(1) && !moveRight.OtherMoveIsMoving() && !rightColliderScript.isCollided)
-            {
-                //Debug.Log("MoveRight");
-                ChangeNewLanePosX(1);
-                moveRight.isMoving = true;
-                moveRight.StartMoveTimer();
-            }
-            
-        }
-        else if (CapsuleHandSwipes_L.IsSwipingLeft && CapsuleHandSwipes_R.IsSwipingLeft)
-        {
-            if (!moveLeft.isMoving && !transform.position.x.Equals(-1) && !moveLeft.OtherMoveIsMoving() && !leftColliderScript.isCollided)
-            {
-                //Debug.Log("MoveLeft");
-                ChangeNewLanePosX(-1);
-                moveLeft.isMoving = true;
-                moveLeft.StartMoveTimer();
-            }
-        }
-        else if (CapsuleHandSwipes_L.IsSwipingUp && CapsuleHandSwipes_R.IsSwipingUp)
-        {
-            if (isGrounded && !jump.OtherMoveIsMoving() && !topColliderScript.isCollided)
+            if (isGrounded && !jump.OtherMoveIsMoving())
             {
                 //Debug.Log("Jump");
                 playerRigidbody.velocity = new Vector3(0, jumpPower, 0);
-                isGrounded = false;
                 jump.isMoving = true;
                 playerPreviousSpeed = playerCurrentSpeed;
                 playerCurrentSpeed = playerStartSpeed;
-            }
-
-        }/*
-        else if (CapsuleHandSwipes_L.IsSwipingDown && CapsuleHandSwipes_R.IsSwipingDown)
-        {   
-            if (!slide.isMoving && isGrounded && !slide.OtherMoveIsMoving())
-            {
-                Debug.Log("Slide");
-                slide.isMoving = true;
-                slide.StartMoveTimer();
-            }
-            
-        }
-        */
-    }
-    void OnCollisionStay(Collision other)
-    {
-        if (other.gameObject.tag.Equals("Ground"))
-        {
-            isGrounded = true;
-            if (jump.isMoving)
+            }else
             {
                 jump.isMoving = false;
-                playerCurrentSpeed = playerPreviousSpeed;
+            }
+
+        }
+    }
+    void SlideListener()
+    {
+        if (newMovePos.y < mainCamTransform.position.y - headCheckOffset)
+        {
+            if (isGrounded && !slide.OtherMoveIsMoving())
+            {
+                //Debug.Log("Slide");
+                slide.isMoving = true;
+                GetComponent<CapsuleCollider>().height = Mathf.Lerp(GetComponent<CapsuleCollider>().height, 1, slidingSmooth);
+            }
+        }
+        else
+        {
+            slide.isMoving = false;
+            GetComponent<CapsuleCollider>().height = Mathf.Lerp(GetComponent<CapsuleCollider>().height, 2, slidingSmooth);
+        }
+    }
+    void OnCollisionStay(Collision collision)
+    {
+        foreach (ContactPoint contact in collision.contacts )
+        {
+            if (Vector3.Angle(contact.normal,Vector3.up) < maxSlope)
+            {
+                isGrounded = true;
             }
         }
     }
-
-    public void KnockBack()
+    void OnCollisionExit(Collision collision)
+    {
+        isGrounded = false;
+    }
+    public IEnumerator KnockBack()
     {
         knockBack.isMoving = true;
-        knockBack.StartMoveTimer();
-        isGrounded = false;
         Vector3 newPos = new Vector3(0, 6, transform.position.z - 6);
         transform.position = newPos;
+        playerRigidbody.velocity = Vector3.zero;
         playerCurrentSpeed = playerStartSpeed;
+        yield return new WaitForSeconds(knockBackTimerLimit);
+        knockBack.isMoving = false;   
     }
 }
