@@ -28,7 +28,6 @@ public class GameController : MonoBehaviour {
     {
         if (playerSeedControllerScript.playerCurrentSeed.Equals(0) && !gameIsOver)
         {
-            //GameOver();
             gameIsOver = true;
             playerMoveControllerScript.enabled = false;
             StartCoroutine(WaitDieAnim(tempDieAnimTime));
