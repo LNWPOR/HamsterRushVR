@@ -9,7 +9,6 @@ public class BoxingController : BaseTypeController {
     }
     void Start()
     {
-        SetCapsuleHand();
         SetWeaponParent();
     }
 }

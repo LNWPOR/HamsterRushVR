@@ -49,6 +49,7 @@ public class PlayerMoveController : MonoBehaviour {
     }
     void Update()
     {
+        /*
         //for testing in LeapMotion Mode
         if (!playerControllerScript.isVRmode)
         {
@@ -57,6 +58,7 @@ public class PlayerMoveController : MonoBehaviour {
             transform.Rotate(0,rotateX,0);
             mainCamTransform.Rotate(-rotateY,0,0);
         }
+        */
 
         //Debug.DrawRay(transform.position, mainCamTransform.forward * 50f, Color.green);
         CheckMoveTrigger();

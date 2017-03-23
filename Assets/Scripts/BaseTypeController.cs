@@ -27,12 +27,12 @@ public class BaseTypeController : MonoBehaviour {
             body.SetActive(false);
             weapon.SetActive(false);
         }
-    }
+    }/*
     protected void SetCapsuleHand()
     {
         CapsuleHand_R = playerControllerScript.CapsuleHand_R;
         CapsuleHand_L = playerControllerScript.CapsuleHand_L;
-    }
+    }*/
     protected void SetWeaponParent()
     {
         rightPalm = playerControllerScript.HandAttachments_R.GetComponent<HandAttachmentsController>().Palm;

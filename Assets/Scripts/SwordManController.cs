@@ -21,7 +21,6 @@ public class SwordManController : BaseTypeController{
     }
     void Start()
     {
-        SetCapsuleHand();
         SetWeaponParent();
     }
     private void Update()
