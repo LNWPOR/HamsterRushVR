@@ -25,9 +25,12 @@ public class SeedsShooterController : MonoBehaviour
     private float currentCharge = 0;
     public float chargeUp = 100f;
     public float shootPower = 1500f;
+    private PlayerSeedController playerSeedControllerScript;
+    public int shootCost = 1;
     private void Awake()
     {
         playerControllerScript = player.GetComponent<PlayerController>();
+        playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
     }
     void Start()
     {
@@ -68,10 +71,11 @@ public class SeedsShooterController : MonoBehaviour
         //Debug.DrawLine(transform.position, shootingDirRef.position,Color.green);
         if (handHoldScirpt.handIsHold)
         {
-            if (stateAction.Equals(0))
+            if (stateAction.Equals(0) && playerSeedControllerScript.playerCurrentSeed > 0)
             {
                 //Debug.Log("Charge");
                 stateAction = 1;
+                playerSeedControllerScript.playerCurrentSeed -= shootCost;
                 instantiateSeedBullet = Instantiate(seedBulletPrefab, transform.position, Quaternion.identity) as GameObject;
                 instantiateSeedBullet.transform.parent = transform;
                 seedBulletAnimator = instantiateSeedBullet.GetComponent<Animator>();

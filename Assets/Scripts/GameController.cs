@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    private GameObject player;
-    private PlayerHPController playerHPControllerScript;
+    public GameObject player;
+    private PlayerSeedController playerSeedControllerScript;
+    private PlayerMoveController playerMoveControllerScript;
     public GameObject leapEventSystem;
     public GameObject gameOverCanvas;
     public bool isTestGamePlay;
@@ -14,8 +15,8 @@ public class GameController : MonoBehaviour {
     public float tempDieAnimTime = 3f; //Note change this to equal the player dieAnim time later
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        playerHPControllerScript = player.GetComponent<PlayerHPController>();
+        playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
+        playerMoveControllerScript = player.GetComponent<PlayerMoveController>();
         if (!isTestGamePlay)
         {
             GameManager.Instance.gamePage.GetComponent<GamePageController>().gamePlayPanelVR.SetActive(true);
@@ -25,11 +26,11 @@ public class GameController : MonoBehaviour {
 
     void Update()
     {
-        if (playerHPControllerScript.playerCurrentHP.Equals(0) && !gameIsOver)
+        if (playerSeedControllerScript.playerCurrentSeed.Equals(0) && !gameIsOver)
         {
             //GameOver();
             gameIsOver = true;
-            player.GetComponent<PlayerMoveController>().enabled = false;
+            playerMoveControllerScript.enabled = false;
             StartCoroutine(WaitDieAnim(tempDieAnimTime));
         }
     }

@@ -10,7 +10,7 @@ public class PlayerHPController : MonoBehaviour {
     PlayerMoveController playerMoveControllerScript;
     void Awake()
     {
-        playerMoveControllerScript = gameObject.GetComponent<PlayerMoveController>();
+        playerMoveControllerScript = GetComponent<PlayerMoveController>();
     }
 	void Start () {
         playerCurrentHP = playerLimitHP;

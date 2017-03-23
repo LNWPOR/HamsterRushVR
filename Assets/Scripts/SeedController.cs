@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SeedController : MonoBehaviour {
 
-    public float seedPoint = 1;
+    public int seedPoint = 1;
     public float spinSpeed = 100f;
     void Start()
     {
@@ -20,8 +20,8 @@ public class SeedController : MonoBehaviour {
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            PlayerSeedController playerUltimateContrllerScript = other.gameObject.GetComponent<PlayerSeedController>();
-            playerUltimateContrllerScript.IncreseUltiPoint(seedPoint);
+            PlayerSeedController playerSeedContrllerScript = other.gameObject.GetComponent<PlayerSeedController>();
+            playerSeedContrllerScript.IncreseSeed(seedPoint);
             Destroy(gameObject);
         }
     }

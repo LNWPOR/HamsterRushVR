@@ -18,7 +18,7 @@ public class GameOverPanelController : MonoBehaviour {
     void Start()
     {
         scoresText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
-        seedsText.text = player.GetComponent<PlayerSeedController>().playerCurrentSeed.ToString();
+        seedsText.text = player.GetComponent<PlayerSeedController>().playerCurrentMaxSeed.ToString();
         AddScoreSeed();
         GameManager.Instance.gamePage.GetComponent<GamePageController>().gamePlayPanelVR.SetActive(false);
     }
