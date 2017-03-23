@@ -17,6 +17,8 @@ public class HandAttachmentsController : MonoBehaviour {
     public Vector3 handFacingVector;
     public bool handIsFaceUp = false;
     public bool handIsFaceDown = false;
+
+    public GameObject SeedsShooter;
     private void Awake()
     {
         handFacingVector = facingRef.position - Palm.transform.position;

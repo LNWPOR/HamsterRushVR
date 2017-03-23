@@ -39,6 +39,7 @@ public class SeedsShooterController : MonoBehaviour {
             CapsuleHand = playerControllerScript.CapsuleHand_L;
         }
         handAttCtrlScript = HandAttachments.GetComponent<HandAttachmentsController>();
+        handAttCtrlScript.SeedsShooter = gameObject;
         handExtendScirpt = CapsuleHand.GetComponent<HandExtend>();
         handHoldScirpt = CapsuleHand.GetComponent<HandHold>();
     }

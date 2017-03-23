@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class BaseTypeController : MonoBehaviour {
     public int type;
-    public GameObject CapsuleHand_R;
-    public GameObject CapsuleHand_L;
+    protected GameObject HandAttachments;
+    protected GameObject CapsuleHand;
     public GameObject body;
     public GameObject weapon;
     public GameObject rightPalm;
-    PlayerController playerControllerScript;
+    protected PlayerController playerControllerScript;
+    protected HandAttachmentsController handAttCtrlScript;
+    protected HandExtend handExtendScirpt;
+    protected HandHold handHoldScirpt;
     protected void AwakeType(int type)
     {
         if (GameManager.Instance.characterType.Equals(type))
@@ -27,16 +30,18 @@ public class BaseTypeController : MonoBehaviour {
             body.SetActive(false);
             weapon.SetActive(false);
         }
-    }/*
-    protected void SetCapsuleHand()
+    }
+    protected void SetUpHand()
     {
-        CapsuleHand_R = playerControllerScript.CapsuleHand_R;
-        CapsuleHand_L = playerControllerScript.CapsuleHand_L;
-    }*/
+        HandAttachments = playerControllerScript.HandAttachments_R;
+        handAttCtrlScript = HandAttachments.GetComponent<HandAttachmentsController>();
+        CapsuleHand = playerControllerScript.CapsuleHand_R;
+        rightPalm = handAttCtrlScript.Palm;
+        handExtendScirpt = CapsuleHand.GetComponent<HandExtend>();
+        handHoldScirpt = CapsuleHand.GetComponent<HandHold>();
+    }
     protected void SetWeaponParent()
     {
-        rightPalm = playerControllerScript.HandAttachments_R.GetComponent<HandAttachmentsController>().Palm;
-
         weapon.transform.parent = rightPalm.transform;
         weapon.transform.position = rightPalm.transform.position;
     }
