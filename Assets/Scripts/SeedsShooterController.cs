@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SeedsShooterController : MonoBehaviour {
+public class SeedsShooterController : MonoBehaviour
+{
     public bool isRightHand;
     private PlayerController playerControllerScript;
     private GameObject HandAttachments;
@@ -12,7 +13,9 @@ public class SeedsShooterController : MonoBehaviour {
     public GameObject player;
     private int stateAction = 0;
     public GameObject seedBulletPrefab;
-    public Transform spawnPos;
+    public Transform holdingPosVR;
+    public Transform holdingPosLM;
+    public Transform holdingPos;
     private GameObject instantiateSeedBullet;
     private Animator seedBulletAnimator;
     private Vector3 handFacing;
@@ -38,14 +41,31 @@ public class SeedsShooterController : MonoBehaviour {
             HandAttachments = playerControllerScript.HandAttachments_L;
             CapsuleHand = playerControllerScript.CapsuleHand_L;
         }
+
+        if (playerControllerScript.isVRmode)
+        {
+            holdingPos = holdingPosVR;
+        }
+        else
+        {
+            holdingPos = holdingPosLM;
+        }
+
+
         handAttCtrlScript = HandAttachments.GetComponent<HandAttachmentsController>();
         handAttCtrlScript.SeedsShooter = gameObject;
+        transform.parent = handAttCtrlScript.Palm.transform;
+        transform.localPosition = Vector3.zero;
+        transform.localEulerAngles = Vector3.zero;
+        transform.localPosition = holdingPos.localPosition;
+        transform.localEulerAngles = holdingPos.localEulerAngles;
         handExtendScirpt = CapsuleHand.GetComponent<HandExtend>();
         handHoldScirpt = CapsuleHand.GetComponent<HandHold>();
     }
     private void Update()
     {
-        shootingVector = shootingDirRef.position - spawnPos.position;
+        shootingVector = shootingDirRef.position - transform.position;
+        //Debug.DrawLine(transform.position, shootingDirRef.position,Color.green);
         if (handHoldScirpt.handIsHold)
         {
             if (stateAction.Equals(0))
@@ -54,7 +74,6 @@ public class SeedsShooterController : MonoBehaviour {
                 stateAction = 1;
                 instantiateSeedBullet = Instantiate(seedBulletPrefab, transform.position, Quaternion.identity) as GameObject;
                 instantiateSeedBullet.transform.parent = transform;
-                instantiateSeedBullet.transform.position = spawnPos.position;
                 seedBulletAnimator = instantiateSeedBullet.GetComponent<Animator>();
                 seedBulletAnimator.SetInteger("State", stateAction);
             }
@@ -78,6 +97,6 @@ public class SeedsShooterController : MonoBehaviour {
             }
         }
 
-      
+
     }
 }

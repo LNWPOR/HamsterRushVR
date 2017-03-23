@@ -66,7 +66,7 @@ public class PlayerMoveController : MonoBehaviour {
     void FixedUpdate()
     {
         MoveForward();
-        MoveLR();
+        //MoveLR();
     }
     void MoveLR()
     {

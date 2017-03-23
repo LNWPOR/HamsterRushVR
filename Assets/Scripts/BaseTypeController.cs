@@ -43,6 +43,10 @@ public class BaseTypeController : MonoBehaviour {
     protected void SetWeaponParent()
     {
         weapon.transform.parent = rightPalm.transform;
-        weapon.transform.position = rightPalm.transform.position;
+        weapon.transform.localPosition = Vector3.zero;
+        weapon.transform.localEulerAngles = Vector3.zero;
+        weapon.transform.localPosition = weapon.GetComponent<WeaponController>().holdingPos.localPosition;
+        weapon.transform.localEulerAngles = weapon.GetComponent<WeaponController>().holdingPos.localEulerAngles;
+        
     }
 }

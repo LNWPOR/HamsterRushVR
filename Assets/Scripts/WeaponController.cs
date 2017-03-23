@@ -2,11 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponController : MonoBehaviour {
-    public GameObject Player;
-    //public Vector3 holdingPos;
-    void OnEnable()
+public class WeaponController : MonoBehaviour
+{
+    public GameObject player;
+    private PlayerController playerControllerScript;
+    public Transform holdingPosVR;
+    public Transform holdingPosLM;
+    public Transform holdingPos;
+    private void Awake()
     {
-        //transform.localPosition = holdingPos;
+        playerControllerScript = player.GetComponent<PlayerController>();
+        if (playerControllerScript.isVRmode)
+        {
+            holdingPos = holdingPosVR;
+        }
+        else
+        {
+            holdingPos = holdingPosLM;
+        }
     }
 }
