@@ -39,12 +39,13 @@ public class PlayerMoveController : MonoBehaviour {
     {
         playerControllerScript = GetComponent<PlayerController>();
         playerRigidbody = GetComponent<Rigidbody>();
-    }
-    void Start () {
         InitMoveList();
         moveForward.isMoving = true;
         playerCurrentSpeed = playerStartSpeed;
         playerPreviousSpeed = playerStartSpeed;
+    }
+    private void Start()
+    {
         mainCamTransform = playerControllerScript.mainCameraTransform;
     }
     void Update()

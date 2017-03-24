@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class PlayerSeedController : MonoBehaviour {
 
     public int startSeed = 25;
     public int playerCurrentMaxSeed = 0;
     public int playerCurrentSeed = 0;
     PlayerMoveController playerMoveControllerScript;
+    public GameObject gameOverCanvas;
+    public float tempDieAnimTime = 3f; //Note change this to equal the player dieAnim time later
     private void Awake()
     {
         playerMoveControllerScript = GetComponent<PlayerMoveController>();
@@ -25,9 +26,10 @@ public class PlayerSeedController : MonoBehaviour {
     }
     public void DecreaseSeed(int point)
     {
-        if (playerCurrentSeed - point < 0)
+        if (playerCurrentSeed - point <= 0)
         {
             playerCurrentSeed = 0;
+            GameOver();
         }
         else
         {
@@ -35,5 +37,26 @@ public class PlayerSeedController : MonoBehaviour {
             StartCoroutine(playerMoveControllerScript.KnockBack());
         }
     }
-
+    public void ShootSeed(int point)
+    {
+        if (playerCurrentSeed - point <= 0)
+        {
+            playerCurrentSeed = 0;
+            GameOver();
+        }
+        else
+        {
+            playerCurrentSeed -= point;
+        }
+    }
+    private IEnumerator WaitDieAnim(float waitTime)
+    {
+        playerMoveControllerScript.enabled = false;
+        yield return new WaitForSeconds(waitTime);
+        gameOverCanvas.SetActive(true);
+    }
+    private void GameOver()
+    {
+        StartCoroutine(WaitDieAnim(tempDieAnimTime));
+    }
 }

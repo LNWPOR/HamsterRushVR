@@ -6,30 +6,23 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using System.Net;
 
-public class GameOverPanelController : MonoBehaviour {
+public class GameOverCanvasController : MonoBehaviour {
 
-    private GameObject player;
+    public GameObject player;
     public Text scoresText;
     public Text seedsText;
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-    }
-    void Start()
-    {
         scoresText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
         seedsText.text = player.GetComponent<PlayerSeedController>().playerCurrentMaxSeed.ToString();
         AddScoreSeed();
-        GameManager.Instance.gamePage.GetComponent<GamePageController>().gamePlayPanelVR.SetActive(false);
     }
     public void OnClickRestart()
     {
-        GameManager.Instance.trinusLeapSetupIsSet.transform.parent = GameManager.Instance.transform;
         SceneManager.LoadScene("GamePlay");
     }
     public void OnClickMenu()
     {
-        GameManager.Instance.trinusLeapSetupIsSet.transform.parent = GameManager.Instance.transform;
         SceneManager.LoadScene("Menu");
     }
     private void AddScoreSeed()

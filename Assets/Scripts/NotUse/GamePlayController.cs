@@ -2,26 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameController : MonoBehaviour {
+public class GamePlayController : MonoBehaviour {
 
     public GameObject player;
     private PlayerSeedController playerSeedControllerScript;
     private PlayerMoveController playerMoveControllerScript;
-    public GameObject leapEventSystem;
     public GameObject gameOverCanvas;
-    public bool isTestGamePlay;
 
     private bool gameIsOver = false;
     public float tempDieAnimTime = 3f; //Note change this to equal the player dieAnim time later
-    void Awake()
+    void Start()
     {
         playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
         playerMoveControllerScript = player.GetComponent<PlayerMoveController>();
-        if (!isTestGamePlay)
-        {
-            GameManager.Instance.gamePage.GetComponent<GamePageController>().gamePlayPanelVR.SetActive(true);
-        }
-        
     }
 
     void Update()

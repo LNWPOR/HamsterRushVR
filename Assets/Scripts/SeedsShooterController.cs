@@ -75,11 +75,11 @@ public class SeedsShooterController : MonoBehaviour
             {
                 //Debug.Log("Charge");
                 stateAction = 1;
-                playerSeedControllerScript.playerCurrentSeed -= shootCost;
                 instantiateSeedBullet = Instantiate(seedBulletPrefab, transform.position, Quaternion.identity) as GameObject;
                 instantiateSeedBullet.transform.parent = transform;
                 seedBulletAnimator = instantiateSeedBullet.GetComponent<Animator>();
                 seedBulletAnimator.SetInteger("State", stateAction);
+                playerSeedControllerScript.ShootSeed(shootCost);
             }
 
             if (stateAction.Equals(1))

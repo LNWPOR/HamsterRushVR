@@ -3,32 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
+    public bool isVRmode = false;
+    public GameObject HandModels_VR;
+    public GameObject HandModels_LM;
+    private GameObject HandModels;
+    private HandModelsController handModelsController;
     public GameObject CapsuleHand_R;
     public GameObject CapsuleHand_L;
     public GameObject HandAttachments_R;
     public GameObject HandAttachments_L;
-    private HandModelsController handModelsController;
-    public bool isVRmode = false;
+    public GameObject trinusCamera;
+    public GameObject leapMotionCamera;
     public Transform mainCameraTransform;
     void Awake()
     {
         if (isVRmode)
         {
-            ChangeTrinusParent();
-            mainCameraTransform = GameObject.Find("TrinusCamera").transform;
+            mainCameraTransform = trinusCamera.transform;
+            HandModels = HandModels_VR;
         }else
         {
-            mainCameraTransform = GameObject.Find("LeapMotionCamera").transform;
+            mainCameraTransform = leapMotionCamera.transform;
+            HandModels = HandModels_LM;
         }
         HandSetup();
     }
-    void ChangeTrinusParent()
+    void HandSetup()
     {
-        if (GameManager.Instance.trinusLeapSetupIsSet)
-        {
-            GameManager.Instance.trinusLeapSetupIsSet.transform.parent = gameObject.transform;
-            GameManager.Instance.trinusLeapSetupIsSet.transform.position = transform.position;
-        }
+        handModelsController = HandModels.GetComponent<HandModelsController>();
+        SetMainCapsuleHands();
+        SetMainHandAttachments();
     }
     void SetMainCapsuleHands()
     {
@@ -40,10 +44,5 @@ public class PlayerController : MonoBehaviour {
         HandAttachments_R = handModelsController.HandR;
         HandAttachments_L = handModelsController.HandL;
     }
-    void HandSetup()
-    {
-        handModelsController = GameObject.Find("HandModels").GetComponent<HandModelsController>();
-        SetMainCapsuleHands();
-        SetMainHandAttachments();
-    }
+    
 }
