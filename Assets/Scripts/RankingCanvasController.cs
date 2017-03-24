@@ -12,7 +12,7 @@ public class RankingCanvasController : MonoBehaviour {
     private List<PlayerData> playerList;
 	// Use this for initialization
 	void Awake () {
-        //InitRanking();
+        InitRanking();
     }
 	
     private void InitRanking()
