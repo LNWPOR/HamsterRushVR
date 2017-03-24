@@ -40,7 +40,6 @@ public class RankingCanvasController : MonoBehaviour {
                     //not show scores/seeds of new register player that still did't play the game
                     if (!scores.Equals(0) && !seeds.Equals(0))
                     {
-                        Debug.Log(player);
                         PlayerData playerAdd = new PlayerData(  Converter.JsonToString(player.GetField("_id").ToString()),
                                                                 Converter.JsonToString(player.GetField("name").ToString()),
                                                                 scores,
