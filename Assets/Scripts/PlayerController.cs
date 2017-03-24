@@ -15,16 +15,22 @@ public class PlayerController : MonoBehaviour {
     public GameObject trinusCamera;
     public GameObject leapMotionCamera;
     public Transform mainCameraTransform;
+    public GameObject playerSeedsShooter;
+    public GameObject gamePlayCanvasVR;
+    public GameObject gamePlayCanvasLM;
+    public GameObject gamePlayCanvas;
     void Awake()
     {
         if (isVRmode)
         {
             mainCameraTransform = trinusCamera.transform;
             HandModels = HandModels_VR;
+            gamePlayCanvas = gamePlayCanvasVR;
         }else
         {
             mainCameraTransform = leapMotionCamera.transform;
             HandModels = HandModels_LM;
+            gamePlayCanvas = gamePlayCanvasLM;
         }
         HandSetup();
     }

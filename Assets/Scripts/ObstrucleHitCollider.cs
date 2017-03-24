@@ -10,8 +10,8 @@ public class ObstrucleHitCollider : MonoBehaviour {
         if (other.gameObject.tag.Equals("Player"))
         {
             GameObject player = other.gameObject;
-            PlayerHPController playerHPControllerScript = player.GetComponent<PlayerHPController>();
-            playerHPControllerScript.DecresePlayerHP(damage);
+            PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
+            playerSeedControllerScript.DecreaseSeed(damage);
         }
     }
 }

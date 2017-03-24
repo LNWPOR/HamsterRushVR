@@ -6,11 +6,16 @@ public class PlayerSeedController : MonoBehaviour {
     public int startSeed = 25;
     public int playerCurrentMaxSeed = 0;
     public int playerCurrentSeed = 0;
-    PlayerMoveController playerMoveControllerScript;
+
+    private PlayerController playerControllerScript;
+    private PlayerMoveController playerMoveControllerScript;
     public GameObject gameOverCanvas;
+    public GameObject gamePlayCanvas;
     public float tempDieAnimTime = 3f; //Note change this to equal the player dieAnim time later
+
     private void Awake()
     {
+        playerControllerScript = GetComponent<PlayerController>();
         playerMoveControllerScript = GetComponent<PlayerMoveController>();
         playerCurrentSeed = startSeed;
         playerCurrentMaxSeed = startSeed;
@@ -52,6 +57,8 @@ public class PlayerSeedController : MonoBehaviour {
     private IEnumerator WaitDieAnim(float waitTime)
     {
         playerMoveControllerScript.enabled = false;
+        playerControllerScript.gamePlayCanvas.SetActive(false);
+        playerControllerScript.playerSeedsShooter.SetActive(false);
         yield return new WaitForSeconds(waitTime);
         gameOverCanvas.SetActive(true);
     }
