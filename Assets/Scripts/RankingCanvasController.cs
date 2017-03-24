@@ -35,11 +35,18 @@ public class RankingCanvasController : MonoBehaviour {
                 for (int i = 0; i < result.GetField("players").Count; i++)
                 {
                     JSONObject player = result.GetField("players")[i];
-                    PlayerData playerAdd = new PlayerData(  Converter.JsonToString(player.GetField("_id").ToString()), 
-                                                            Converter.JsonToString(player.GetField("name").ToString()),
-                                                            Converter.JsonToFloat(player.GetField("scores").ToString()),
-                                                            Converter.JsonToFloat(player.GetField("seeds").ToString()));
-                    playerList.Add(playerAdd);
+                    float scores = Converter.JsonToFloat(player.GetField("scores").ToString());
+                    float seeds = Converter.JsonToFloat(player.GetField("seeds").ToString());
+                    //not show scores/seeds of new register player that still did't play the game
+                    if (!scores.Equals(0) && !seeds.Equals(0))
+                    {
+                        Debug.Log(player);
+                        PlayerData playerAdd = new PlayerData(  Converter.JsonToString(player.GetField("_id").ToString()),
+                                                                Converter.JsonToString(player.GetField("name").ToString()),
+                                                                scores,
+                                                                seeds);
+                        playerList.Add(playerAdd);
+                    }
                 }
 
                 //sort playerList by scores descending
