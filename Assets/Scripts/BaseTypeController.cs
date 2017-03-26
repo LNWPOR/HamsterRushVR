@@ -4,15 +4,11 @@ using UnityEngine;
 
 public class BaseTypeController : MonoBehaviour {
     public int type;
-    protected GameObject HandAttachments;
-    protected GameObject CapsuleHand;
+    public GameObject capsuleHand;
     public GameObject body;
     public GameObject weapon;
+    protected WeaponController weaponControllerScript;
     public GameObject rightPalm;
-    protected PlayerController playerControllerScript;
-    protected HandAttachmentsController handAttCtrlScript;
-    protected HandExtend handExtendScirpt;
-    protected HandHold handHoldScirpt;
     protected void AwakeType(int type)
     {
         if (GameManager.Instance.characterType.Equals(type))
@@ -20,9 +16,7 @@ public class BaseTypeController : MonoBehaviour {
             this.enabled = true;
             body.SetActive(true);
             weapon.SetActive(true);
-
-            playerControllerScript = GetComponent<PlayerController>();
-            
+            weaponControllerScript = weapon.GetComponent<WeaponController>();
         }
         else
         {
@@ -31,22 +25,19 @@ public class BaseTypeController : MonoBehaviour {
             weapon.SetActive(false);
         }
     }
-    protected void SetUpHand()
+    protected void AwakeWeapon()
     {
-        HandAttachments = playerControllerScript.HandAttachments_R;
-        handAttCtrlScript = HandAttachments.GetComponent<HandAttachmentsController>();
-        CapsuleHand = playerControllerScript.CapsuleHand_R;
-        rightPalm = handAttCtrlScript.Palm;
-        handExtendScirpt = CapsuleHand.GetComponent<HandExtend>();
-        handHoldScirpt = CapsuleHand.GetComponent<HandHold>();
+        SetWeaponParent();
+        capsuleHand.transform.localScale = new Vector3(0, 0, 0);
+        weapon.SetActive(true);
     }
     protected void SetWeaponParent()
     {
         weapon.transform.parent = rightPalm.transform;
         weapon.transform.localPosition = Vector3.zero;
         weapon.transform.localEulerAngles = Vector3.zero;
-        weapon.transform.localPosition = weapon.GetComponent<WeaponController>().holdingPos.localPosition;
-        weapon.transform.localEulerAngles = weapon.GetComponent<WeaponController>().holdingPos.localEulerAngles;
+        weapon.transform.localPosition = weaponControllerScript.holdingPos.localPosition;
+        weapon.transform.localEulerAngles = weaponControllerScript.holdingPos.localEulerAngles;
         
     }
 }

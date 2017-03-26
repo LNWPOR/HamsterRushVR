@@ -10,11 +10,8 @@ public class GunManController : BaseTypeController {
     }
     void Start()
     {
-        SetUpHand();
-        SetWeaponParent();
-        handGunScript = CapsuleHand.GetComponent<HandGun>();
-        CapsuleHand.transform.localScale = new Vector3(0, 0, 0);
-        weapon.SetActive(true);
+        AwakeWeapon();
+        handGunScript = capsuleHand.GetComponent<HandGun>();
     }
     private void Update()
     {

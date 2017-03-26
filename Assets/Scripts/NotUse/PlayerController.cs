@@ -3,35 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    public bool isVRmode = false;
-    public GameObject HandModels_VR;
-    public GameObject HandModels_LM;
+    /*
     private GameObject HandModels;
     private HandModelsController handModelsController;
-    public GameObject CapsuleHand_R;
     public GameObject CapsuleHand_L;
-    public GameObject HandAttachments_R;
+    public GameObject CapsuleHand_R;
     public GameObject HandAttachments_L;
-    public GameObject trinusCamera;
-    public GameObject leapMotionCamera;
+    public GameObject HandAttachments_R;
     public Transform mainCameraTransform;
     public GameObject playerSeedsShooter;
-    public GameObject gamePlayCanvasVR;
-    public GameObject gamePlayCanvasLM;
     public GameObject gamePlayCanvas;
     void Awake()
     {
-        if (isVRmode)
-        {
-            mainCameraTransform = trinusCamera.transform;
-            HandModels = HandModels_VR;
-            gamePlayCanvas = gamePlayCanvasVR;
-        }else
-        {
-            mainCameraTransform = leapMotionCamera.transform;
-            HandModels = HandModels_LM;
-            gamePlayCanvas = gamePlayCanvasLM;
-        }
         HandSetup();
     }
     void HandSetup()
@@ -50,5 +33,5 @@ public class PlayerController : MonoBehaviour {
         HandAttachments_R = handModelsController.HandR;
         HandAttachments_L = handModelsController.HandL;
     }
-    
+    */
 }

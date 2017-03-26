@@ -3,9 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerMoveController : MonoBehaviour {
-
-    private PlayerController playerControllerScript;
-    private Transform mainCamTransform;
+    public Transform mainCamTransform;
     private Vector3 newMovePos;
     public float headCheckOffset = 3f;
 
@@ -37,16 +35,11 @@ public class PlayerMoveController : MonoBehaviour {
 
     void Awake()
     {
-        playerControllerScript = GetComponent<PlayerController>();
         playerRigidbody = GetComponent<Rigidbody>();
         InitMoveList();
         moveForward.isMoving = true;
         playerCurrentSpeed = playerStartSpeed;
         playerPreviousSpeed = playerStartSpeed;
-    }
-    private void Start()
-    {
-        mainCamTransform = playerControllerScript.mainCameraTransform;
     }
     void Update()
     {

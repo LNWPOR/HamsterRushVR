@@ -4,22 +4,15 @@ using UnityEngine;
 
 public class SeedsShooterController : MonoBehaviour
 {
-    public bool isRightHand;
-    private PlayerController playerControllerScript;
-    private GameObject HandAttachments;
-    private GameObject CapsuleHand;
+    public GameObject capsuleHand;
     private HandExtend handExtendScirpt;
     private HandHold handHoldScirpt;
     public GameObject player;
     private int stateAction = 0;
     public GameObject seedBulletPrefab;
-    public Transform holdingPosVR;
-    public Transform holdingPosLM;
     public Transform holdingPos;
     private GameObject instantiateSeedBullet;
     private Animator seedBulletAnimator;
-    private Vector3 handFacing;
-    private HandAttachmentsController handAttCtrlScript;
     public Transform shootingDirRef;
     private Vector3 shootingVector;
     private float currentCharge = 0;
@@ -27,43 +20,20 @@ public class SeedsShooterController : MonoBehaviour
     public float shootPower = 1500f;
     private PlayerSeedController playerSeedControllerScript;
     public int shootCost = 1;
+    public GameObject palm;
     private void Awake()
     {
-        playerControllerScript = player.GetComponent<PlayerController>();
         playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
     }
     void Start()
     {
-        if (isRightHand)
-        {
-            HandAttachments = playerControllerScript.HandAttachments_R;
-            CapsuleHand = playerControllerScript.CapsuleHand_R;
-        }
-        else
-        {
-            HandAttachments = playerControllerScript.HandAttachments_L;
-            CapsuleHand = playerControllerScript.CapsuleHand_L;
-        }
-
-        if (playerControllerScript.isVRmode)
-        {
-            holdingPos = holdingPosVR;
-        }
-        else
-        {
-            holdingPos = holdingPosLM;
-        }
-
-
-        handAttCtrlScript = HandAttachments.GetComponent<HandAttachmentsController>();
-        handAttCtrlScript.SeedsShooter = gameObject;
-        transform.parent = handAttCtrlScript.Palm.transform;
+        transform.parent = palm.transform;
         transform.localPosition = Vector3.zero;
         transform.localEulerAngles = Vector3.zero;
         transform.localPosition = holdingPos.localPosition;
         transform.localEulerAngles = holdingPos.localEulerAngles;
-        handExtendScirpt = CapsuleHand.GetComponent<HandExtend>();
-        handHoldScirpt = CapsuleHand.GetComponent<HandHold>();
+        handExtendScirpt = capsuleHand.GetComponent<HandExtend>();
+        handHoldScirpt = capsuleHand.GetComponent<HandHold>();
     }
     private void Update()
     {

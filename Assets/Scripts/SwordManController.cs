@@ -9,12 +9,7 @@ public class SwordManController : BaseTypeController{
     }
     void Start()
     {
-        SetUpHand();
-        SetWeaponParent();
-
-        CapsuleHand.transform.localScale = new Vector3(0, 0, 0);
-        //handAttCtrlScript.SeedsShooter.SetActive(false);
-        weapon.SetActive(true);
+        AwakeWeapon();
     }
     private void Update()
     {

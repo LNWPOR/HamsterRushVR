@@ -9,9 +9,6 @@ public class GuardianController : BaseTypeController {
     }
     void Start()
     {
-        SetUpHand();
-        SetWeaponParent();
-        CapsuleHand.transform.localScale = new Vector3(0, 0, 0);
-        weapon.SetActive(true);
+        AwakeWeapon();
     }
 }
