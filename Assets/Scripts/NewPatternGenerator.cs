@@ -4,6 +4,43 @@ using UnityEngine;
 
 public class NewPatternGenerator : MonoBehaviour {
 
+    private GameObject stageController;
+    private StageController stageControllerScript;
+    public GameObject[] currentStagePatterns;
+    public GameObject[] nextStatePatterns;
+    public Transform currentPatternWidthRef;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag.Equals("Player"))
+        {
+            stageController = transform.parent.parent.gameObject;
+            stageControllerScript = stageController.GetComponent<StageController>();
+            if (stageControllerScript.playerScoreControllerScript.playerCurrentScore - stageControllerScript.playerPreviousScore >= stageControllerScript.rangeChangeStage)
+            {
+                stageControllerScript.playerPreviousScore += stageControllerScript.rangeChangeStage;
+                InitNextPattern(nextStatePatterns);
+            }
+            else
+            {
+                InitNextPattern(currentStagePatterns);
+            }
+        }
+    }
+    private void InitNextPattern(GameObject[] patterns)
+    {
+        int nextPatternIndex = (int)Mathf.Round(Random.Range(0, patterns.Length));
+        Vector3 newPatternPoint = new Vector3(0, 0, currentPatternWidthRef.GetComponent<MeshRenderer>().bounds.size.z + currentPatternWidthRef.position.z);
+        GameObject newGeneratePattern = Instantiate(patterns[nextPatternIndex], newPatternPoint, Quaternion.identity) as GameObject;
+        newGeneratePattern.transform.parent = stageController.transform;
+        newGeneratePattern.name = patterns[nextPatternIndex].gameObject.name;
+        Transform currentPattern = transform.parent;
+        if (!currentPattern.Equals(stageController.transform.GetChild(0)))
+        {
+            Destroy(stageController.transform.GetChild(0).gameObject);
+        }
+    }
+
+    /*
     public GameObject[] patterns;
     public Transform currentPlaneRef;
     void OnTriggerEnter(Collider other)
@@ -22,5 +59,5 @@ public class NewPatternGenerator : MonoBehaviour {
                 Destroy(stage.GetChild(0).gameObject);
             }
         }
-    }
+    }*/
 }
