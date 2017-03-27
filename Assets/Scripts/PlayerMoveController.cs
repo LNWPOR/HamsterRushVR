@@ -47,9 +47,8 @@ public class PlayerMoveController : MonoBehaviour {
     }
     void Update()
     {
-
-        //for testing in LeapMotion Mode
         /*
+        //for testing in LeapMotion Mode
         float moveLRSentivity = 5f;
         float rotateX = Input.GetAxis("Mouse X") * moveLRSentivity;
         float rotateY = Input.GetAxis("Mouse Y") * moveLRSentivity;
