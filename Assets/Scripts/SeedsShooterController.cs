@@ -16,14 +16,16 @@ public class SeedsShooterController : MonoBehaviour
     public Transform shootingDirRef;
     private Vector3 shootingVector;
     private float currentCharge = 0;
-    public float chargeUp = 100f;
-    public float shootPower = 1500f;
+    public float chargeUp = 1f;
+    public float shootPower = 75f;
     private PlayerSeedController playerSeedControllerScript;
+    private Rigidbody playerRigidbody;
     public int shootCost = 1;
     public GameObject palm;
     private void Awake()
     {
         playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
+        playerRigidbody = player.GetComponent<Rigidbody>();
     }
     void Start()
     {
@@ -66,7 +68,7 @@ public class SeedsShooterController : MonoBehaviour
                 stateAction = 0;
                 instantiateSeedBullet.transform.parent = null;
                 instantiateSeedBullet.AddComponent<Rigidbody>();
-                instantiateSeedBullet.GetComponent<Rigidbody>().AddForce(shootingVector * (shootPower + chargeUp));
+                instantiateSeedBullet.GetComponent<Rigidbody>().velocity = shootingVector * (shootPower + currentCharge);
                 currentCharge = 0;
             }
         }
