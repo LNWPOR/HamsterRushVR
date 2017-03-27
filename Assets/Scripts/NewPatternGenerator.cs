@@ -24,6 +24,7 @@ public class NewPatternGenerator : MonoBehaviour {
             {
                 InitNextPattern(currentStagePatterns);
             }
+            Destroy(gameObject);
         }
     }
     private void InitNextPattern(GameObject[] patterns)

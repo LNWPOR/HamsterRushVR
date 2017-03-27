@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class PlayerMoveController : MonoBehaviour {
     public Transform mainCamTransform;
     private Vector3 newMovePos;
-    public float headCheckOffset = 3f;
+    public float headCheckOffset;
 
     public float knockBackTimerLimit = 3f;
     public float slidingSmooth = 0.05f;
@@ -29,9 +29,12 @@ public class PlayerMoveController : MonoBehaviour {
     private float playerPreviousScore = 0f;
     public float rangeScoreSpeedUp = 200f;
 
-    public float maxSlope = 90f;
-    public float moveLRSentivity = 5f;
-    public float moveLRSmooth = 0.25f;
+    private float maxSlope = 90f;
+    
+    public float moveLRSmooth;
+
+    private float normalHeight;
+    public float slideHeight;
 
     void Awake()
     {
@@ -40,31 +43,31 @@ public class PlayerMoveController : MonoBehaviour {
         moveForward.isMoving = true;
         playerCurrentSpeed = playerStartSpeed;
         playerPreviousSpeed = playerStartSpeed;
+        normalHeight = GetComponent<CapsuleCollider>().height;
     }
     void Update()
     {
-        /*
+
         //for testing in LeapMotion Mode
-        if (!playerControllerScript.isVRmode)
-        {
-            float rotateX = Input.GetAxis("Mouse X") * moveLRSentivity;
-            float rotateY = Input.GetAxis("Mouse Y") * moveLRSentivity;
-            transform.Rotate(0,rotateX,0);
-            mainCamTransform.Rotate(-rotateY,0,0);
-        }
+        /*
+        float moveLRSentivity = 5f;
+        float rotateX = Input.GetAxis("Mouse X") * moveLRSentivity;
+        float rotateY = Input.GetAxis("Mouse Y") * moveLRSentivity;
+        transform.Rotate(0,rotateX,0);
+        mainCamTransform.Rotate(-rotateY,0,0);
         */
 
-        //Debug.DrawRay(transform.position, mainCamTransform.forward * 50f, Color.green);
+        //Debug.DrawLine(transform.position, mainCamTransform.forward * 50f, Color.green);
         CheckMoveTrigger();
     }
     void FixedUpdate()
     {
+        newMovePos = transform.position + mainCamTransform.forward * 50f;
         MoveForward();
-        //MoveLR();
+        MoveLR();
     }
     void MoveLR()
     {
-        newMovePos = transform.position + mainCamTransform.forward * 50f;
         playerRigidbody.velocity = new Vector3((newMovePos.x - transform.position.x) * moveLRSmooth,
                                                 playerRigidbody.velocity.y,
                                                 playerRigidbody.velocity.z);
@@ -138,13 +141,13 @@ public class PlayerMoveController : MonoBehaviour {
             {
                 //Debug.Log("Slide");
                 slide.isMoving = true;
-                GetComponent<CapsuleCollider>().height = Mathf.Lerp(GetComponent<CapsuleCollider>().height, 1, slidingSmooth);
+                GetComponent<CapsuleCollider>().height = Mathf.Lerp(GetComponent<CapsuleCollider>().height, slideHeight, slidingSmooth);
             }
         }
         else
         {
             slide.isMoving = false;
-            GetComponent<CapsuleCollider>().height = Mathf.Lerp(GetComponent<CapsuleCollider>().height, 2, slidingSmooth);
+            GetComponent<CapsuleCollider>().height = Mathf.Lerp(GetComponent<CapsuleCollider>().height, normalHeight, slidingSmooth);
         }
     }
     void OnCollisionStay(Collision collision)
