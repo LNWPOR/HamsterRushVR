@@ -1,18 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class SwordManController : BaseTypeController{
+
+    public float staminaMax;
+    public float currentStatmina;
+    public float cost;
+    public float staminaGainSpeed;
+    public Image currentBar;
     void Awake()
     {
         AwakeType(type);
+        
+        currentStatmina = staminaMax;
     }
-    void Start()
+    private void Start()
     {
         AwakeWeapon();
     }
     private void Update()
     {
+        if (currentStatmina + staminaGainSpeed * Time.deltaTime < staminaMax)
+        {
+            currentStatmina += staminaGainSpeed * Time.deltaTime;
+        }
+        else
+        {
+            currentStatmina = staminaMax;
+        }
+        currentBar.rectTransform.localScale = new Vector3(currentStatmina/staminaMax,1,1);
+
+
         /*
         if (handExtendScirpt.handIsExtend)
         {

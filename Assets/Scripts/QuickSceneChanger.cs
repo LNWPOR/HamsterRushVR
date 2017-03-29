@@ -7,13 +7,13 @@ using UnityEngine.SceneManagement;
 public class QuickSceneChanger : MonoBehaviour {
 
 	void Update () {
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("z"))
         {
             SceneManager.LoadScene("PreStart");
-        }else if (Input.GetKeyDown("2"))
+        }else if (Input.GetKeyDown("x"))
         {
             SceneManager.LoadScene("Menu");
-        }else if (Input.GetKeyDown("3"))
+        }else if (Input.GetKeyDown("c"))
         {
             SceneManager.LoadScene("GamePlay");
         }

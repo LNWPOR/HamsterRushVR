@@ -9,6 +9,7 @@ public class BaseTypeController : MonoBehaviour {
     public GameObject weapon;
     protected WeaponController weaponControllerScript;
     public GameObject rightPalm;
+    public GameObject weaponBar;
     protected void AwakeType(int type)
     {
         if (GameManager.Instance.characterType.Equals(type))
@@ -16,7 +17,7 @@ public class BaseTypeController : MonoBehaviour {
             this.enabled = true;
             body.SetActive(true);
             weapon.SetActive(true);
-            weaponControllerScript = weapon.GetComponent<WeaponController>();
+            weaponBar.SetActive(true);
         }
         else
         {
@@ -27,6 +28,7 @@ public class BaseTypeController : MonoBehaviour {
     }
     protected void AwakeWeapon()
     {
+        weaponControllerScript = weapon.GetComponent<WeaponController>();
         SetWeaponParent();
         capsuleHand.transform.localScale = new Vector3(0, 0, 0);
         weapon.SetActive(true);
