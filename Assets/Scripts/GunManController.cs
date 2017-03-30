@@ -9,11 +9,13 @@ public class GunManController : BaseTypeController {
     public float cost;
     public float bulletGainSpeed;
     public Image currentBar;
+    private GunController gunControllerScript;
     void Awake()
     {
         AwakeType(type);
         handGunScript = capsuleHand.GetComponent<HandGun>();
         currentBullet = maxBullet;
+        gunControllerScript = weapon.GetComponent<GunController>();
     }
     private void Start()
     {
@@ -23,9 +25,11 @@ public class GunManController : BaseTypeController {
     {
         if (handGunScript.handIsGun)
         {
-            Debug.Log("Fire");
+            if (currentBullet > 0)
+            {
+                gunControllerScript.RayCastShoot(Time.time, ref currentBullet, cost);
+            }       
         }
-
         if (currentBullet + bulletGainSpeed * Time.deltaTime < maxBullet)
         {
             currentBullet += bulletGainSpeed * Time.deltaTime;
