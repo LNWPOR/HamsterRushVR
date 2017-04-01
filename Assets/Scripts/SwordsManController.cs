@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class SwordManController : BaseTypeController{
+public class SwordsManController : BaseTypeController{
 
     public float staminaMax;
     public float currentStatmina;
