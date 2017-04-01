@@ -10,8 +10,11 @@ public class SeedBulletController : MonoBehaviour {
         if (other.gameObject.tag.Equals("Destroyable"))
         {
             Destroy(other.gameObject);
+            Destroy(gameObject);
+        }else
+        {
+            StartCoroutine(DestroyBullet());
         }
-        StartCoroutine(DestroyBullet());
     }
     private IEnumerator DestroyBullet()
     {
