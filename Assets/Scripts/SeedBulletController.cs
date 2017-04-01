@@ -11,5 +11,6 @@ public class SeedBulletController : MonoBehaviour {
         {
             Destroy(other.gameObject);
         }
+        Destroy(gameObject);
     }
 }

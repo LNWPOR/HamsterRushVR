@@ -16,8 +16,10 @@ public class SeedsShooterController : MonoBehaviour
     public Transform shootingDirRef;
     private Vector3 shootingVector;
     private float currentCharge = 0;
-    public float chargeUp = 1f;
-    public float shootPower = 75f;
+    public float speedChargeUp;
+    public float sizeChargeUp;
+    public float maxCharge;
+    public float shootPower;
     private PlayerSeedController playerSeedControllerScript;
     private Rigidbody playerRigidbody;
     public int shootCost = 1;
@@ -56,7 +58,15 @@ public class SeedsShooterController : MonoBehaviour
 
             if (stateAction.Equals(1))
             {
-                currentCharge += chargeUp;
+                if (currentCharge <= maxCharge)
+                {
+                    currentCharge += speedChargeUp;
+                    Vector3 currentBulletScale = instantiateSeedBullet.transform.localScale;
+                    float sizeCharged = sizeChargeUp * Time.deltaTime;
+                    instantiateSeedBullet.transform.localScale = new Vector3(currentBulletScale.x + sizeCharged,
+                                                                            currentBulletScale.y + sizeCharged,
+                                                                            currentBulletScale.z + sizeCharged);
+                }
             }
         }
 
