@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SeedBulletController : MonoBehaviour {
-
+    private float destroyDuration = 3f;
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log(collision.gameObject.name);
@@ -11,6 +11,10 @@ public class SeedBulletController : MonoBehaviour {
         {
             Destroy(other.gameObject);
         }
-        Destroy(gameObject);
+        StartCoroutine(DestroyBullet());
+    }
+    private IEnumerator DestroyBullet()
+    {
+        yield return new WaitForSeconds(destroyDuration);
     }
 }

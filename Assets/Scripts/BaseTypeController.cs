@@ -30,7 +30,7 @@ public class BaseTypeController : MonoBehaviour {
     {
         weaponControllerScript = weapon.GetComponent<WeaponController>();
         SetWeaponParent();
-        capsuleHand.transform.localScale = new Vector3(0, 0, 0);
+        //capsuleHand.transform.localScale = new Vector3(0, 0, 0);
         weapon.SetActive(true);
     }
     protected void SetWeaponParent()
