@@ -17,10 +17,6 @@ public class GunManController : BaseTypeController {
         currentBullet = maxBullet;
         gunControllerScript = weapon.GetComponent<GunController>();
     }
-    private void Start()
-    {
-        AwakeWeapon();
-    }
     private void Update()
     {
         if (handGunScript.handIsGun)

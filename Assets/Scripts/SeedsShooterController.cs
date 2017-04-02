@@ -10,7 +10,6 @@ public class SeedsShooterController : MonoBehaviour
     public GameObject player;
     private int stateAction = 0;
     public GameObject seedBulletPrefab;
-    //public Transform holdingPos;
     private GameObject instantiateSeedBullet;
     private Animator seedBulletAnimator;
     public Transform shootingDirRef;
@@ -28,16 +27,6 @@ public class SeedsShooterController : MonoBehaviour
     {
         playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
         playerRigidbody = player.GetComponent<Rigidbody>();
-    }
-    void Start()
-    {
-        /*
-        transform.parent = palm.transform;
-        transform.localPosition = Vector3.zero;
-        transform.localEulerAngles = Vector3.zero;
-        transform.localPosition = holdingPos.localPosition;
-        transform.localEulerAngles = holdingPos.localEulerAngles;
-        */
         handExtendScirpt = capsuleHand.GetComponent<HandExtend>();
         handHoldScirpt = capsuleHand.GetComponent<HandHold>();
     }

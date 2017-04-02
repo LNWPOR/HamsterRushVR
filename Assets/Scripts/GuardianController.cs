@@ -14,10 +14,6 @@ public class GuardianController : BaseTypeController
         AwakeType(type);
         currentShieldHP = shieldHPMax;
     }
-    private void Start()
-    {
-        AwakeWeapon();
-    }
     private void Update()
     {
         if (currentShieldHP + shieldRegenSpeed * Time.deltaTime < shieldHPMax)

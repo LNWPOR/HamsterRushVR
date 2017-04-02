@@ -15,10 +15,6 @@ public class SwordsManController : BaseTypeController{
         
         currentStatmina = staminaMax;
     }
-    private void Start()
-    {
-        AwakeWeapon();
-    }
     private void Update()
     {
         if (currentStatmina + staminaGainSpeed * Time.deltaTime < staminaMax)
