@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class WeaponController : MonoBehaviour
 {
-    public Transform holdingPos;
+    //public Transform holdingPos;
 
     
 }
