@@ -1,62 +1,43 @@
 fileFormatVersion: 2
 guid: 5cd117a4ed325764a84f5ad4af85576f
-timeCreated: 1491053715
+timeCreated: 1491136843
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: ArmatureBody
-    100002: BlackOutline
-    100004: BlackOutlineArmatureBody
-    100006: body
-    100008: Bone
-    100010: Bone_0
-    100012: Bone_001
-    100014: Bone_002
-    100016: Bone_003
-    100018: Bone_004
-    100020: Bone_005
-    100022: Bone_006
-    100024: Bone_008
-    100026: Bone_2
-    100028: Bone_3
-    100030: Bone_4
-    100032: Bone_5
-    100034: Bone_6
-    100036: Bone_7
-    100038: Bone_9
-    100040: //RootNode
+    100002: BlackOutlineMaterial
+    100004: body
+    100006: Bone
+    100008: Bone_001
+    100010: Bone_002
+    100012: Bone_003
+    100014: Bone_004
+    100016: Bone_005
+    100018: Bone_006
+    100020: Bone_008
+    100022: //RootNode
     400000: ArmatureBody
-    400002: BlackOutline
-    400004: BlackOutlineArmatureBody
-    400006: body
-    400008: Bone
-    400010: Bone_0
-    400012: Bone_001
-    400014: Bone_002
-    400016: Bone_003
-    400018: Bone_004
-    400020: Bone_005
-    400022: Bone_006
-    400024: Bone_008
-    400026: Bone_2
-    400028: Bone_3
-    400030: Bone_4
-    400032: Bone_5
-    400034: Bone_6
-    400036: Bone_7
-    400038: Bone_9
-    400040: //RootNode
-    4300000: BlackOutline
+    400002: BlackOutlineMaterial
+    400004: body
+    400006: Bone
+    400008: Bone_001
+    400010: Bone_002
+    400012: Bone_003
+    400014: Bone_004
+    400016: Bone_005
+    400018: Bone_006
+    400020: Bone_008
+    400022: //RootNode
+    4300000: BlackOutlineMaterial
     4300002: body
     7400000: Default Take
     7400002: DieAnim
-    7400004: DieAnim_001
-    7400006: IdleAnim
-    7400008: JumpAnim
-    7400010: RunningAnim
+    7400004: IdleAnim
+    7400006: JumpAnim
+    7400008: RunningAnim
     9500000: //RootNode
-    13700000: BlackOutline
+    13700000: BlackOutlineMaterial
     13700002: body
   materials:
     importMaterials: 1
@@ -108,41 +89,23 @@ ModelImporter:
         weight: 1
       - path: ArmatureBody
         weight: 1
-      - path: ArmatureBody/Bone_0
+      - path: ArmatureBody/Bone
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2
+      - path: ArmatureBody/Bone/Bone_001
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2/Bone_3
+      - path: ArmatureBody/Bone/Bone_001/Bone_002
         weight: 1
-      - path: ArmatureBody/Bone_4
+      - path: ArmatureBody/Bone_003
         weight: 1
-      - path: ArmatureBody/Bone_5
+      - path: ArmatureBody/Bone_004
         weight: 1
-      - path: ArmatureBody/Bone_6
+      - path: ArmatureBody/Bone_005
         weight: 1
-      - path: ArmatureBody/Bone_7
+      - path: ArmatureBody/Bone_006
         weight: 1
-      - path: ArmatureBody/Bone_9
+      - path: ArmatureBody/Bone_008
         weight: 1
-      - path: BlackOutline
-        weight: 1
-      - path: BlackOutlineArmatureBody
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001/Bone_002
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_003
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_004
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_005
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_006
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_008
+      - path: BlackOutlineMaterial
         weight: 1
       - path: body
         weight: 1
@@ -178,111 +141,23 @@ ModelImporter:
         weight: 1
       - path: ArmatureBody
         weight: 1
-      - path: ArmatureBody/Bone_0
+      - path: ArmatureBody/Bone
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2
+      - path: ArmatureBody/Bone/Bone_001
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2/Bone_3
+      - path: ArmatureBody/Bone/Bone_001/Bone_002
         weight: 1
-      - path: ArmatureBody/Bone_4
+      - path: ArmatureBody/Bone_003
         weight: 1
-      - path: ArmatureBody/Bone_5
+      - path: ArmatureBody/Bone_004
         weight: 1
-      - path: ArmatureBody/Bone_6
+      - path: ArmatureBody/Bone_005
         weight: 1
-      - path: ArmatureBody/Bone_7
+      - path: ArmatureBody/Bone_006
         weight: 1
-      - path: ArmatureBody/Bone_9
+      - path: ArmatureBody/Bone_008
         weight: 1
-      - path: BlackOutline
-        weight: 1
-      - path: BlackOutlineArmatureBody
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001/Bone_002
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_003
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_004
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_005
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_006
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_008
-        weight: 1
-      - path: body
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: DieAnim_001
-      takeName: DieAnim_001
-      firstFrame: -1
-      lastFrame: 99
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: ArmatureBody
-        weight: 1
-      - path: ArmatureBody/Bone_0
-        weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2
-        weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2/Bone_3
-        weight: 1
-      - path: ArmatureBody/Bone_4
-        weight: 1
-      - path: ArmatureBody/Bone_5
-        weight: 1
-      - path: ArmatureBody/Bone_6
-        weight: 1
-      - path: ArmatureBody/Bone_7
-        weight: 1
-      - path: ArmatureBody/Bone_9
-        weight: 1
-      - path: BlackOutline
-        weight: 1
-      - path: BlackOutlineArmatureBody
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001/Bone_002
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_003
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_004
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_005
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_006
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_008
+      - path: BlackOutlineMaterial
         weight: 1
       - path: body
         weight: 1
@@ -318,41 +193,23 @@ ModelImporter:
         weight: 1
       - path: ArmatureBody
         weight: 1
-      - path: ArmatureBody/Bone_0
+      - path: ArmatureBody/Bone
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2
+      - path: ArmatureBody/Bone/Bone_001
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2/Bone_3
+      - path: ArmatureBody/Bone/Bone_001/Bone_002
         weight: 1
-      - path: ArmatureBody/Bone_4
+      - path: ArmatureBody/Bone_003
         weight: 1
-      - path: ArmatureBody/Bone_5
+      - path: ArmatureBody/Bone_004
         weight: 1
-      - path: ArmatureBody/Bone_6
+      - path: ArmatureBody/Bone_005
         weight: 1
-      - path: ArmatureBody/Bone_7
+      - path: ArmatureBody/Bone_006
         weight: 1
-      - path: ArmatureBody/Bone_9
+      - path: ArmatureBody/Bone_008
         weight: 1
-      - path: BlackOutline
-        weight: 1
-      - path: BlackOutlineArmatureBody
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001/Bone_002
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_003
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_004
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_005
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_006
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_008
+      - path: BlackOutlineMaterial
         weight: 1
       - path: body
         weight: 1
@@ -388,41 +245,23 @@ ModelImporter:
         weight: 1
       - path: ArmatureBody
         weight: 1
-      - path: ArmatureBody/Bone_0
+      - path: ArmatureBody/Bone
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2
+      - path: ArmatureBody/Bone/Bone_001
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2/Bone_3
+      - path: ArmatureBody/Bone/Bone_001/Bone_002
         weight: 1
-      - path: ArmatureBody/Bone_4
+      - path: ArmatureBody/Bone_003
         weight: 1
-      - path: ArmatureBody/Bone_5
+      - path: ArmatureBody/Bone_004
         weight: 1
-      - path: ArmatureBody/Bone_6
+      - path: ArmatureBody/Bone_005
         weight: 1
-      - path: ArmatureBody/Bone_7
+      - path: ArmatureBody/Bone_006
         weight: 1
-      - path: ArmatureBody/Bone_9
+      - path: ArmatureBody/Bone_008
         weight: 1
-      - path: BlackOutline
-        weight: 1
-      - path: BlackOutlineArmatureBody
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001/Bone_002
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_003
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_004
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_005
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_006
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_008
+      - path: BlackOutlineMaterial
         weight: 1
       - path: body
         weight: 1
@@ -458,41 +297,23 @@ ModelImporter:
         weight: 1
       - path: ArmatureBody
         weight: 1
-      - path: ArmatureBody/Bone_0
+      - path: ArmatureBody/Bone
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2
+      - path: ArmatureBody/Bone/Bone_001
         weight: 1
-      - path: ArmatureBody/Bone_0/Bone_2/Bone_3
+      - path: ArmatureBody/Bone/Bone_001/Bone_002
         weight: 1
-      - path: ArmatureBody/Bone_4
+      - path: ArmatureBody/Bone_003
         weight: 1
-      - path: ArmatureBody/Bone_5
+      - path: ArmatureBody/Bone_004
         weight: 1
-      - path: ArmatureBody/Bone_6
+      - path: ArmatureBody/Bone_005
         weight: 1
-      - path: ArmatureBody/Bone_7
+      - path: ArmatureBody/Bone_006
         weight: 1
-      - path: ArmatureBody/Bone_9
+      - path: ArmatureBody/Bone_008
         weight: 1
-      - path: BlackOutline
-        weight: 1
-      - path: BlackOutlineArmatureBody
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone/Bone_001/Bone_002
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_003
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_004
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_005
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_006
-        weight: 1
-      - path: BlackOutlineArmatureBody/Bone_008
+      - path: BlackOutlineMaterial
         weight: 1
       - path: body
         weight: 1
