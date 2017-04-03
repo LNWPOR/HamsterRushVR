@@ -4,7 +4,7 @@ using UnityEngine;
 using System.IO;
 using System.Net;
 using System.Linq;
-using UnityEngine.UI;
+using TMPro;
 
 public class RankingCanvasController : MonoBehaviour {
 
@@ -64,11 +64,11 @@ public class RankingCanvasController : MonoBehaviour {
                 for (int i = 0;i< ranks.Length - countDelete;i++)
                 {
                     //scores
-                    ranks[i].transform.GetChild(0).GetChild(0).gameObject.GetComponent<Text>().text = playerList[i].scores.ToString();
+                    ranks[i].transform.GetChild(0).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerList[i].scores.ToString();
                     //seeds    
-                    ranks[i].transform.GetChild(1).GetChild(0).gameObject.GetComponent<Text>().text = playerList[i].seeds.ToString();
+                    ranks[i].transform.GetChild(1).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = playerList[i].seeds.ToString();
                     //rankNumber
-                    ranks[i].transform.GetChild(3).GetChild(0).gameObject.GetComponent<Text>().text = "Rank " + (i + 1) + "\n"                                                                                                       + playerList[i].name;
+                    ranks[i].transform.GetChild(3).GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = "Rank " + (i + 1) + "\n"                                                                                                       + playerList[i].name;
                 }
             }
             else

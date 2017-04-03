@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayerCanvasController : MonoBehaviour {
-    public Text playerName;
+    public TextMeshProUGUI playerName;
 
     void Awake()
     {
