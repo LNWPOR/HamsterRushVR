@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ReadyButton : MonoBehaviour {
 
-	public Text playerName;
+	public TextMeshProUGUI playerName;
 
     public void OnClickReady()
     {

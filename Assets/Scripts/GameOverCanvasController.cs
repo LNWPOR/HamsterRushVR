@@ -1,16 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 using System.Net;
+using TMPro;
 
 public class GameOverCanvasController : MonoBehaviour {
 
     public GameObject player;
-    public Text scoresText;
-    public Text seedsText;
+    public TextMeshProUGUI scoresText;
+    public TextMeshProUGUI seedsText;
     void Awake()
     {
         scoresText.text = player.GetComponent<PlayerScoreController>().playerCurrentScore.ToString();
