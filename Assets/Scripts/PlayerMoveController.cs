@@ -15,6 +15,9 @@ public class PlayerMoveController : MonoBehaviour {
     public PlayerMoveData jump;
     public PlayerMoveData slide;
     public PlayerMoveData knockBack;
+    public bool canJump = true;
+    public bool canSlide = true;
+    public bool canMoveUD = false;
 
     public float playerStartSpeed = 5f;
     public float playerCurrentSpeed;
@@ -57,6 +60,7 @@ public class PlayerMoveController : MonoBehaviour {
         */
 
         //Debug.DrawLine(transform.position, mainCamTransform.forward * 50f, Color.green);
+        
         CheckMoveTrigger();
     }
     void FixedUpdate()
@@ -64,6 +68,16 @@ public class PlayerMoveController : MonoBehaviour {
         newMovePos = transform.position + mainCamTransform.forward * 50f;
         MoveForward();
         MoveLR();
+        if (canMoveUD)
+        {
+            MoveUD();
+        }
+    }
+    void MoveUD()
+    {
+        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,
+                                               (newMovePos.y - transform.position.y) * moveLRSmooth,
+                                                playerRigidbody.velocity.z);
     }
     void MoveLR()
     {
@@ -110,9 +124,14 @@ public class PlayerMoveController : MonoBehaviour {
     }
     private void CheckMoveTrigger()
     {
-        JumpListener();
-        SlideListener();
-        
+        if (canJump)
+        {
+            JumpListener();
+        }
+        if (canSlide)
+        {
+            SlideListener();
+        }
     }
     void JumpListener()
     {
@@ -166,11 +185,17 @@ public class PlayerMoveController : MonoBehaviour {
     public IEnumerator KnockBack()
     {
         knockBack.isMoving = true;
-        Vector3 newPos = new Vector3(0, 6, transform.position.z - 6);
+        Vector3 newPos = new Vector3(0, 2, transform.position.z - 6);
         transform.position = newPos;
         playerRigidbody.velocity = Vector3.zero;
         playerCurrentSpeed = playerStartSpeed;
         yield return new WaitForSeconds(knockBackTimerLimit);
         knockBack.isMoving = false;   
+    }
+    public void MoveSetChange(bool newCanJump, bool newCanSlide, bool newCanMoveUD)
+    {
+        canJump = newCanJump;
+        canSlide = newCanSlide;
+        canMoveUD = newCanMoveUD;
     }
 }
