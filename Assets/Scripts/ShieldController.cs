@@ -11,8 +11,15 @@ public class ShieldController : WeaponController
         {
             if (guardianControllerScript.currentShieldHP - guardianControllerScript.cost >= 0)
             {
-                Destroy(other.gameObject);
                 guardianControllerScript.currentShieldHP -= guardianControllerScript.cost;
+                if (other.gameObject.name.Equals("SeedsCollector"))
+                {
+                    other.gameObject.GetComponent<SeedsCollector>().DestroyEffect();
+                }
+                else
+                {
+                    Destroy(other.gameObject);
+                }
             }
         }
     }

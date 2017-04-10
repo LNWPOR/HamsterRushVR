@@ -5,7 +5,7 @@ using UnityEngine;
 public class SeedController : MonoBehaviour {
 
     public int seedPoint = 1;
-    public float spinSpeed = 100f;
+    //public float spinSpeed = 100f;
     void Start()
     {
         // transform.rotation = Quaternion.identity;
@@ -14,7 +14,7 @@ public class SeedController : MonoBehaviour {
     void Update()
     {
         //transform.Rotate(new Vector3(0, Time.deltaTime * spinSpeed,0), Space.Self);
-        transform.RotateAround(transform.position, Vector3.up, spinSpeed * Time.deltaTime);
+        //transform.RotateAround(transform.position, Vector3.up, spinSpeed * Time.deltaTime);
     }
     void OnTriggerEnter(Collider other)
     {

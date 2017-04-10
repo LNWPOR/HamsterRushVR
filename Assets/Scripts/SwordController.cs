@@ -9,8 +9,15 @@ public class SwordController : WeaponController {
         {
             if (swordManControllerScript.currentStatmina - swordManControllerScript.cost >= 0)
             {
-                Destroy(other.gameObject);
                 swordManControllerScript.currentStatmina -= swordManControllerScript.cost;
+                if (other.gameObject.name.Equals("SeedsCollector"))
+                {
+                    other.gameObject.GetComponent<SeedsCollector>().DestroyEffect();
+                }
+                else
+                {
+                    Destroy(other.gameObject);
+                }
             }
         }
     }

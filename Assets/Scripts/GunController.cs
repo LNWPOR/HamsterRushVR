@@ -35,7 +35,14 @@ public class GunController : WeaponController
                 laserLine.SetPosition(1, hit.point);
                 if (hit.collider.gameObject.tag.Equals("Destroyable"))
                 {
-                    Destroy(hit.collider.gameObject);
+                    if (hit.collider.gameObject.name.Equals("SeedsCollector"))
+                    {
+                        hit.collider.gameObject.GetComponent<SeedsCollector>().DestroyEffect();
+                    }
+                    else
+                    {
+                        Destroy(hit.collider.gameObject);
+                    }
                 }
             }
             else

@@ -9,8 +9,14 @@ public class SeedBulletController : MonoBehaviour {
         //Debug.Log(collision.gameObject.name);
         if (other.gameObject.tag.Equals("Destroyable"))
         {
-            Destroy(other.gameObject);
-            Destroy(gameObject);
+            if (other.gameObject.name.Equals("SeedsCollector"))
+            {
+                other.gameObject.GetComponent<SeedsCollector>().DestroyEffect();
+            }else
+            {
+                Destroy(other.gameObject);
+                Destroy(gameObject);
+            }
         }else
         {
             StartCoroutine(DestroyBullet());
