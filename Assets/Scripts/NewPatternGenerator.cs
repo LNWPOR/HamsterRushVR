@@ -8,7 +8,12 @@ public class NewPatternGenerator : MonoBehaviour {
     private StageController stageControllerScript;
     public GameObject[] currentStagePatterns;
     public GameObject[] nextStatePatterns;
-    public Transform currentPatternWidthRef;
+    public GameObject currentPattern;
+    private PatternController currentPatternControllerScript;
+    private void Awake()
+    {
+        currentPatternControllerScript = currentPattern.GetComponent<PatternController>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Player"))
@@ -30,7 +35,11 @@ public class NewPatternGenerator : MonoBehaviour {
     private void InitNextPattern(GameObject[] patterns)
     {
         int nextPatternIndex = (int)Mathf.Round(Random.Range(0, patterns.Length));
-        Vector3 newPatternPoint = new Vector3(0, 0, currentPatternWidthRef.GetComponent<MeshRenderer>().bounds.size.z + currentPatternWidthRef.position.z);
+        PatternController nextPatternControlerScript = patterns[nextPatternIndex].GetComponent<PatternController>();
+        Vector3 newPatternPoint = new Vector3(0, 0, 
+            currentPatternControllerScript.currentPatternWidthRef.GetComponent<MeshRenderer>().bounds.size.z / 2 +
+            nextPatternControlerScript.currentPatternWidthRef.GetComponent<MeshRenderer>().bounds.size.z / 2 +
+            currentPatternControllerScript.currentPatternWidthRef.position.z);
         GameObject newGeneratePattern = Instantiate(patterns[nextPatternIndex], newPatternPoint, Quaternion.identity) as GameObject;
         newGeneratePattern.transform.parent = stageController.transform;
         newGeneratePattern.name = patterns[nextPatternIndex].gameObject.name;
