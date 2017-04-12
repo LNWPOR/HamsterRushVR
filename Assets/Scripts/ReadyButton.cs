@@ -9,11 +9,9 @@ using TMPro;
 public class ReadyButton : MonoBehaviour {
 
 	public TextMeshProUGUI playerName;
-
     public void OnClickReady()
     {
-        //Debug.Log(playerName.text);
-        if (playerName.text.Length > 0)
+        if (!((int)playerName.text[0]).Equals(8203))
         {
             var webAddr = GameManager.Instance.URL + "/api/players";
             var req = (HttpWebRequest)WebRequest.Create(webAddr);
