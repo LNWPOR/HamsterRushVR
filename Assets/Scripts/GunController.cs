@@ -41,7 +41,11 @@ public class GunController : WeaponController
                     }
                     else
                     {
-                        Destroy(hit.collider.gameObject);
+                        AudioSource hitAS = hit.collider.gameObject.GetComponent<AudioSource>();
+                        hitAS.Play();
+                        hit.collider.gameObject.GetComponent<Collider>().enabled = false;
+                        hit.collider.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                        Destroy(hit.collider.gameObject, hitAS.clip.length);
                     }
                 }
             }

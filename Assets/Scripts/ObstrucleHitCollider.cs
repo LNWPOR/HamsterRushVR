@@ -9,9 +9,12 @@ public class ObstrucleHitCollider : MonoBehaviour {
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            GameObject player = other.gameObject;
-            PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
-            playerSeedControllerScript.DecreaseSeed(damage);
+            if (transform.parent.gameObject.GetComponent<MeshRenderer>().enabled)
+            {
+                GameObject player = other.gameObject;
+                PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
+                playerSeedControllerScript.DecreaseSeed(damage);
+            }
         }
     }
 }

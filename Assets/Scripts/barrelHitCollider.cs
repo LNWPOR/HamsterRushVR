@@ -9,10 +9,13 @@ public class barrelHitCollider : MonoBehaviour {
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            GameObject player = other.gameObject;
-            PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
-            playerSeedControllerScript.DecreaseSeed(damage);
-            Destroy(transform.parent.gameObject);
+            if (transform.parent.gameObject.GetComponent<MeshRenderer>().enabled)
+            {
+                GameObject player = other.gameObject;
+                PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
+                playerSeedControllerScript.DecreaseSeed(damage);
+                Destroy(transform.parent.gameObject);
+            }
         }
     }
 }

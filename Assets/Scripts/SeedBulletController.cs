@@ -14,7 +14,11 @@ public class SeedBulletController : MonoBehaviour {
                 other.gameObject.GetComponent<SeedsCollector>().DestroyEffect();
             }else
             {
-                Destroy(other.gameObject);
+                AudioSource otherAS = other.gameObject.GetComponent<AudioSource>();
+                otherAS.Play();
+                other.gameObject.GetComponent<Collider>().enabled = false;
+                other.gameObject.GetComponent<MeshRenderer>().enabled = false;
+                Destroy(other.gameObject,otherAS.clip.length);
                 Destroy(gameObject);
             }
         }else
