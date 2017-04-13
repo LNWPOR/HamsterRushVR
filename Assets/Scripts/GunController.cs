@@ -13,9 +13,11 @@ public class GunController : WeaponController
     private LineRenderer laserLine;
     private Vector3 shootingDir;
     public LayerMask shootingLayerMask;
+    private AudioSource gunAS;
     private void Awake()
     {
         laserLine = GetComponent<LineRenderer>();
+        gunAS = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -29,6 +31,7 @@ public class GunController : WeaponController
             nextFire = fireRate + time;
             StartCoroutine(ShotEffect());
             shootingDir = gunTarget.position - gunEnd.position;
+            gunAS.Play();
             RaycastHit hit;
             if (Physics.Raycast(gunEnd.position, shootingDir, out hit, Mathf.Infinity, shootingLayerMask))
             {
