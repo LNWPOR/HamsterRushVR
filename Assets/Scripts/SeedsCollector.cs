@@ -10,6 +10,8 @@ public class SeedsCollector : MonoBehaviour {
     public GameObject seedsIncreaseText;
     public int seedIncrease;
     public float destroyWaitTime;
+    private AudioSource seedCollectorAS;
+    public AudioClip getSeed;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -22,13 +24,9 @@ public class SeedsCollector : MonoBehaviour {
         GetComponent<SphereCollider>().enabled = false;
         Destroy(seed);
         playerSeedControllerScript.IncreseSeed(seedIncrease);
-        StartCoroutine(StartSeedsIncreaseText());
-    }
-    private IEnumerator StartSeedsIncreaseText()
-    {
         seedsIncreaseText.SetActive(true);
-        yield return new WaitForSeconds(3f);
-        Destroy(gameObject);
+        seedCollectorAS.PlayOneShot(getSeed);
+        Destroy(gameObject,destroyWaitTime);
     }
  
 
