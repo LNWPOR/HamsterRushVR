@@ -4,17 +4,12 @@ using UnityEngine;
 
 public class SeedController : MonoBehaviour {
 
+    private AudioSource seedAS;
+    public AudioClip getSeed;
     public int seedPoint = 1;
-    //public float spinSpeed = 100f;
-    void Start()
+    private void Awake()
     {
-        // transform.rotation = Quaternion.identity;
-        //transform.parent = transform.parent.parent;
-    }
-    void Update()
-    {
-        //transform.Rotate(new Vector3(0, Time.deltaTime * spinSpeed,0), Space.Self);
-        //transform.RotateAround(transform.position, Vector3.up, spinSpeed * Time.deltaTime);
+        seedAS = GetComponent<AudioSource>();
     }
     void OnTriggerEnter(Collider other)
     {
@@ -22,7 +17,10 @@ public class SeedController : MonoBehaviour {
         {
             PlayerSeedController playerSeedContrllerScript = other.gameObject.GetComponent<PlayerSeedController>();
             playerSeedContrllerScript.IncreseSeed(seedPoint);
-            Destroy(gameObject);
+            seedAS.PlayOneShot(getSeed);
+            GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<CapsuleCollider>().enabled = false;
+            Destroy(gameObject, getSeed.length);
         }
     }
 }
