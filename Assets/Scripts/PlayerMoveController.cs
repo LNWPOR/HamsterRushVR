@@ -39,6 +39,10 @@ public class PlayerMoveController : MonoBehaviour {
     private float normalHeight;
     public float slideHeight;
 
+    private AudioSource playerAS;
+    public AudioClip jumpAudio;
+    public AudioClip knockBackAudio;
+
     void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -47,6 +51,7 @@ public class PlayerMoveController : MonoBehaviour {
         playerCurrentSpeed = playerStartSpeed;
         playerPreviousSpeed = playerStartSpeed;
         normalHeight = GetComponent<CapsuleCollider>().height;
+        playerAS = GetComponent<AudioSource>();
     }
     void Update()
     {
@@ -130,7 +135,7 @@ public class PlayerMoveController : MonoBehaviour {
         }
         if (canSlide)
         {
-            SlideListener();
+            //SlideListener();
         }
     }
     void JumpListener()
@@ -144,6 +149,7 @@ public class PlayerMoveController : MonoBehaviour {
                 jump.isMoving = true;
                 playerPreviousSpeed = playerCurrentSpeed;
                 playerCurrentSpeed = playerStartSpeed;
+                playerAS.PlayOneShot(jumpAudio);
             }else
             {
                 jump.isMoving = false;
@@ -189,6 +195,7 @@ public class PlayerMoveController : MonoBehaviour {
         transform.position = newPos;
         playerRigidbody.velocity = Vector3.zero;
         playerCurrentSpeed = playerStartSpeed;
+        playerAS.PlayOneShot(knockBackAudio);
         yield return new WaitForSeconds(knockBackTimerLimit);
         knockBack.isMoving = false;   
     }
