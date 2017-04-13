@@ -23,12 +23,14 @@ public class SeedsShooterController : MonoBehaviour
     private Rigidbody playerRigidbody;
     public int shootCost = 1;
     public GameObject palm;
+    private AudioSource shooterAS;
     private void Awake()
     {
         playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
         playerRigidbody = player.GetComponent<Rigidbody>();
         handExtendScirpt = capsuleHand.GetComponent<HandExtend>();
         handHoldScirpt = capsuleHand.GetComponent<HandHold>();
+        shooterAS = GetComponent<AudioSource>();
     }
     private void Update()
     {
@@ -72,6 +74,7 @@ public class SeedsShooterController : MonoBehaviour
                 instantiateSeedBullet.GetComponent<Rigidbody>().velocity = shootingVector * (shootPower + currentCharge);
                 instantiateSeedBullet.GetComponent<SphereCollider>().enabled = true;
                 currentCharge = 0;
+                shooterAS.Play();
             }
         }
 
