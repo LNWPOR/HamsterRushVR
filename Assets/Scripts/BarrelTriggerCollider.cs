@@ -14,6 +14,7 @@ public class BarrelTriggerCollider : MonoBehaviour {
             barrelRigidbody.constraints =   RigidbodyConstraints.FreezePositionX|
                                             RigidbodyConstraints.FreezeRotationZ;
             barrelRigidbody.AddForce(new Vector3( 0,0, -barrelSpeed));
+            Destroy(gameObject);
         }
     }
 }
