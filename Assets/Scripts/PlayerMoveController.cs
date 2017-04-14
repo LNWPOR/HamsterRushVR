@@ -230,6 +230,11 @@ public class PlayerMoveController : MonoBehaviour {
         playerRigidbody.velocity = Vector3.zero;
         playerCurrentSpeed = playerStartSpeed;
         playerAS.PlayOneShot(knockBackAudio);
+
+        leftCollider.isCollided = false;
+        rightCollider.isCollided = false;
+        upCollider.isCollided = false;
+        downCollider.isCollided = false;
         yield return new WaitForSeconds(knockBackTimerLimit);
         knockBack.isMoving = false;   
     }
