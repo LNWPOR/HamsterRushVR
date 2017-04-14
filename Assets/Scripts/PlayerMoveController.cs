@@ -45,6 +45,8 @@ public class PlayerMoveController : MonoBehaviour {
 
     public CheckCollider leftCollider;
     public CheckCollider rightCollider;
+    public CheckCollider upCollider;
+    public CheckCollider downCollider;
 
     void Awake()
     {
@@ -83,9 +85,18 @@ public class PlayerMoveController : MonoBehaviour {
     }
     void MoveUD()
     {
-        playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,
+        if ((upCollider.isCollided && newMovePos.y > transform.position.y) ||
+            (downCollider.isCollided && newMovePos.y < transform.position.y))
+        {
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x, 0, playerRigidbody.velocity.z);
+        }
+        else
+        {
+            playerRigidbody.velocity = new Vector3(playerRigidbody.velocity.x,
                                                (newMovePos.y - transform.position.y) * moveLRSmooth,
                                                 playerRigidbody.velocity.z);
+        }
+        
     }
     void MoveLR()
     {

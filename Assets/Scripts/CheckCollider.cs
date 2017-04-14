@@ -5,12 +5,19 @@ using UnityEngine;
 public class CheckCollider : MonoBehaviour {
 
     public bool isCollided;
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        isCollided = true;
+        if (!other.gameObject.tag.Equals("Player"))
+        {
+            isCollided = true;
+        }
+        
     }
     private void OnTriggerExit(Collider other)
     {
-        isCollided = false;
+        if (!other.gameObject.tag.Equals("Player"))
+        {
+            isCollided = false;
+        }
     }
 }
