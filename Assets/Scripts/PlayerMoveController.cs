@@ -43,6 +43,9 @@ public class PlayerMoveController : MonoBehaviour {
     public AudioClip jumpAudio;
     public AudioClip knockBackAudio;
 
+    public CheckCollider leftCollider;
+    public CheckCollider rightCollider;
+
     void Awake()
     {
         playerRigidbody = GetComponent<Rigidbody>();
@@ -86,8 +89,27 @@ public class PlayerMoveController : MonoBehaviour {
     }
     void MoveLR()
     {
-
-        playerRigidbody.velocity = new Vector3((newMovePos.x - transform.position.x) * moveLRSmooth,
+        CheckHeadFacing();
+        //CheckHeadRotate();
+    }
+    private void CheckHeadFacing()
+    {
+        if ((leftCollider.isCollided && newMovePos.x < transform.position.x) || 
+            (rightCollider.isCollided && newMovePos.x > transform.position.x))
+        {
+            playerRigidbody.velocity = new Vector3(0, playerRigidbody.velocity.y, playerRigidbody.velocity.z);
+        }
+        else
+        {
+            playerRigidbody.velocity = new Vector3((newMovePos.x - transform.position.x) * moveLRSmooth,
+                                                           playerRigidbody.velocity.y,
+                                                           playerRigidbody.velocity.z);
+        }
+        
+    }
+    private void CheckHeadRotate()
+    {
+        playerRigidbody.velocity = new Vector3(mainCamTransform.rotation.z * 100 * moveLRSmooth,
                                                 playerRigidbody.velocity.y,
                                                 playerRigidbody.velocity.z);
     }
