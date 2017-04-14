@@ -86,6 +86,7 @@ public class PlayerMoveController : MonoBehaviour {
     }
     void MoveLR()
     {
+
         playerRigidbody.velocity = new Vector3((newMovePos.x - transform.position.x) * moveLRSmooth,
                                                 playerRigidbody.velocity.y,
                                                 playerRigidbody.velocity.z);
