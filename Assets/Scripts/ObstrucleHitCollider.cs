@@ -5,11 +5,12 @@ using UnityEngine;
 public class ObstrucleHitCollider : MonoBehaviour {
 
     public int damage = 1;
+    public MeshRenderer meshRef;
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag.Equals("Player"))
         {
-            if (transform.parent.gameObject.GetComponent<MeshRenderer>().enabled)
+            if (meshRef.enabled)
             {
                 GameObject player = other.gameObject;
                 PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
