@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class barrelHitCollider : MonoBehaviour {
 
-    public int damage = 1;
-    void OnTriggerEnter(Collider other)
+    private int damage = 10;
+    void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.tag.Equals("Player"))
         {
-            if (transform.parent.gameObject.GetComponent<MeshRenderer>().enabled)
+            if (GetComponent<MeshRenderer>().enabled)
             {
-                GameObject player = other.gameObject;
+                GameObject player = collision.gameObject;
                 PlayerSeedController playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
                 playerSeedControllerScript.DecreaseSeed(damage);
-                Destroy(transform.parent.gameObject);
+                Destroy(transform.gameObject);
             }
         }
     }
