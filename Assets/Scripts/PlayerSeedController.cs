@@ -38,8 +38,8 @@ public class PlayerSeedController : MonoBehaviour {
         else
         {
             playerCurrentSeed -= point;
-            StartCoroutine(playerMoveControllerScript.KnockBack());
         }
+        StartCoroutine(playerMoveControllerScript.KnockBack());
     }
     public void ShootSeed(int point)
     {
