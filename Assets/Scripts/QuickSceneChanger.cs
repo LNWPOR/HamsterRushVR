@@ -10,6 +10,7 @@ public class QuickSceneChanger : MonoBehaviour {
         if (Input.GetKeyDown("z"))
         {
             SceneManager.LoadScene("PreStart");
+            Cursor.visible = true;
         }else if (Input.GetKeyDown("x"))
         {
             SceneManager.LoadScene("Menu");
