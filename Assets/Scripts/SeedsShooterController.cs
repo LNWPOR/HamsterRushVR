@@ -22,7 +22,6 @@ public class SeedsShooterController : MonoBehaviour
     private PlayerSeedController playerSeedControllerScript;
     private Rigidbody playerRigidbody;
     public int shootCost = 1;
-    public GameObject palm;
     private AudioSource shooterAS;
     private void Awake()
     {

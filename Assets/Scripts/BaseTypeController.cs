@@ -8,7 +8,7 @@ public class BaseTypeController : MonoBehaviour {
     //public GameObject body;
     public GameObject weapon;
     protected WeaponController weaponControllerScript;
-    public GameObject rightPalm;
+    public GameObject palm;
     public GameObject weaponBar;
     protected void AwakeType(int type)
     {
