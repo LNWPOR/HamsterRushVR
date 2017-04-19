@@ -72,6 +72,7 @@ public class SeedsShooterController : MonoBehaviour
                 instantiateSeedBullet.AddComponent<Rigidbody>();
                 instantiateSeedBullet.GetComponent<Rigidbody>().velocity = shootingVector * (shootPower + currentCharge);
                 instantiateSeedBullet.GetComponent<SphereCollider>().enabled = true;
+                Destroy(instantiateSeedBullet, instantiateSeedBullet.GetComponent<SeedBulletController>().destroyDuration);
                 currentCharge = 0;
                 shooterAS.Play();
             }
