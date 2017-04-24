@@ -8,15 +8,15 @@ public class SeedsCollector : MonoBehaviour {
     private PlayerSeedController playerSeedControllerScript;
     public GameObject seed;
     public GameObject seedsIncreaseText;
-    public int seedIncrease;
+    private int seedIncrease = 5;
     public float destroyWaitTime;
     private AudioSource seedCollectorAS;
-    public AudioClip getSeed;
     private void Awake()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         playerSeedControllerScript = player.GetComponent<PlayerSeedController>();
         seedsIncreaseText.GetComponent<TextMeshPro>().text = "+" + seedIncrease.ToString();
+        seedCollectorAS = GetComponent<AudioSource>();
     }
     public void DestroyEffect()
     {
@@ -25,7 +25,7 @@ public class SeedsCollector : MonoBehaviour {
         Destroy(seed);
         playerSeedControllerScript.IncreseSeed(seedIncrease);
         seedsIncreaseText.SetActive(true);
-        seedCollectorAS.PlayOneShot(getSeed);
+        seedCollectorAS.PlayOneShot(seedCollectorAS.clip);
         Destroy(gameObject,destroyWaitTime);
     }
  
