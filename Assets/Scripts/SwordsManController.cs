@@ -9,11 +9,13 @@ public class SwordsManController : BaseTypeController{
     public float cost;
     public float staminaGainSpeed;
     public Image currentBar;
+    public Image minimumBar;
     void Awake()
     {
         AwakeType(type);
         
         currentStatmina = staminaMax;
+        minimumBar.rectTransform.localScale = new Vector3(cost / staminaMax, 1, 1);
     }
     private void Update()
     {

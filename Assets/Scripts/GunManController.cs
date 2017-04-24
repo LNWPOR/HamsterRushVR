@@ -9,6 +9,7 @@ public class GunManController : BaseTypeController {
     public float cost;
     public float bulletGainSpeed;
     public Image currentBar;
+    public Image minimumBar;
     private GunController gunControllerScript;
     void Awake()
     {
@@ -16,12 +17,13 @@ public class GunManController : BaseTypeController {
         handGunScript = capsuleHand.GetComponent<HandGun>();
         currentBullet = maxBullet;
         gunControllerScript = weapon.GetComponent<GunController>();
+        minimumBar.rectTransform.localScale = new Vector3(cost / maxBullet, 1, 1);
     }
     private void Update()
     {
         if (handGunScript.handIsGun)
         {
-            if (currentBullet > 0)
+            if (currentBullet - cost >= 0)
             {
                 gunControllerScript.RayCastShoot(Time.time, ref currentBullet, cost);
             }       

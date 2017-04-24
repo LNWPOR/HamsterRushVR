@@ -9,10 +9,12 @@ public class GuardianController : BaseTypeController
     public float cost;
     public float shieldRegenSpeed;
     public Image currentBar;
+    public Image minimumBar;
     void Awake()
     {
         AwakeType(type);
         currentShieldHP = shieldHPMax;
+        minimumBar.rectTransform.localScale = new Vector3(cost / shieldHPMax, 1, 1);
     }
     private void Update()
     {
