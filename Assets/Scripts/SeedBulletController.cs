@@ -14,6 +14,7 @@ public class SeedBulletController : MonoBehaviour {
                 other.gameObject.GetComponent<SeedsCollector>().DestroyEffect();
             }else
             {
+                Debug.Log(other.gameObject.name);
                 AudioSource otherAS = other.gameObject.GetComponent<AudioSource>();
                 otherAS.Play();
                 other.gameObject.GetComponent<Collider>().enabled = false;
