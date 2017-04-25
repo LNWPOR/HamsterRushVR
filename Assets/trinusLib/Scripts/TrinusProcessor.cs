@@ -579,14 +579,15 @@ namespace trinus{
 				lastTriggerState = sensorData.trigger;
 				#if !USE_QUATERNION
 				if (!ignoreTracking && trinusCamera != null)
-					trinusCamera.transform.localEulerAngles = new Vector3 (sensorData.pitch - 90, sensorData.yaw * settingsInstance.yawScale, -sensorData.roll);
-				#else
+                        //trinusCamera.transform.localEulerAngles = new Vector3 (sensorData.pitch - 90, sensorData.yaw * settingsInstance.yawScale, -sensorData.roll);
+                        trinusCamera.transform.localEulerAngles = new Vector3(sensorData.pitch - 90, sensorData.yaw * settingsInstance.yawScale, sensorData.roll);
+#else
 				cameraRotation.Set (sensorData.quatX, sensorData.quatY, sensorData.quatZ, sensorData.quatW);// * Quaternion.Inverse(test);
 				if (!ignoreTracking && trinusCamera != null) {
 					trinusCamera.transform.localRotation = cameraRotation;
 				}
-				#endif
-				acceleration.Set (sensorData.accelX, sensorData.accelY, sensorData.accelZ);
+#endif
+                    acceleration.Set (sensorData.accelX, sensorData.accelY, sensorData.accelZ);
 
 				if (sensorDataDelegate != null) {
 					sensorDataDelegate (cameraRotation, acceleration, sensorData.trigger);

@@ -100,8 +100,8 @@ public class PlayerMoveController : MonoBehaviour {
     }
     void MoveLR()
     {
-        CheckHeadFacing();
-        //CheckHeadRotate();
+        //CheckHeadFacing();
+        CheckHeadRotate();
     }
     private void CheckHeadFacing()
     {
@@ -120,9 +120,19 @@ public class PlayerMoveController : MonoBehaviour {
     }
     private void CheckHeadRotate()
     {
-        playerRigidbody.velocity = new Vector3(mainCamTransform.rotation.z * 100 * moveLRSmooth,
+        if ((leftCollider.isCollided && mainCamTransform.rotation.z > 0) ||
+            (rightCollider.isCollided && mainCamTransform.rotation.z < 0))
+        {
+            playerRigidbody.velocity = new Vector3(0, playerRigidbody.velocity.y, playerRigidbody.velocity.z);
+        }
+        else
+        {
+            playerRigidbody.velocity = new Vector3(-mainCamTransform.rotation.z * 100 * moveLRSmooth,
                                                 playerRigidbody.velocity.y,
                                                 playerRigidbody.velocity.z);
+        }
+        
+            
     }
     public void MoveForward()
     {
