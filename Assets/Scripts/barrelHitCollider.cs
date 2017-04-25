@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class barrelHitCollider : MonoBehaviour {
 
-    private int damage = 10;
+    private int damage = 1;
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag.Equals("Player"))

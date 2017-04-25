@@ -235,7 +235,7 @@ public class PlayerMoveController : MonoBehaviour {
     public IEnumerator KnockBack()
     {
         knockBack.isMoving = true;
-        Vector3 newPos = new Vector3(0, 2, transform.position.z - 6);
+        Vector3 newPos = new Vector3(0, 0, transform.position.z - 6);
         transform.position = newPos;
         playerRigidbody.velocity = Vector3.zero;
         playerCurrentSpeed = playerStartSpeed;

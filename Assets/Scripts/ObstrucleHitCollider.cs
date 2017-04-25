@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ObstrucleHitCollider : MonoBehaviour {
 
-    private int damage = 10;
+    private int damage = 1;
     public MeshRenderer meshRef;
     void OnTriggerEnter(Collider other)
     {
