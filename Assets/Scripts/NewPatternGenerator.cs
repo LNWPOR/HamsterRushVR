@@ -34,7 +34,7 @@ public class NewPatternGenerator : MonoBehaviour {
     }
     private void InitNextPattern(GameObject[] patterns)
     {
-        int nextPatternIndex = (int)Mathf.Round(Random.Range(0, patterns.Length));
+        int nextPatternIndex = (int)Mathf.Round(Random.Range(0, patterns.Length - 1));
         PatternController nextPatternControlerScript = patterns[nextPatternIndex].GetComponent<PatternController>();
         Vector3 newPatternPoint = new Vector3(0, 0, 
             currentPatternControllerScript.currentPatternWidthRef.GetComponent<MeshRenderer>().bounds.size.z / 2 +
