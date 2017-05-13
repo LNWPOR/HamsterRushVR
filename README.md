@@ -1,17 +1,20 @@
-# Project Title
+# Hamster Rush VR
 
-One Paragraph of project description goes here
+An endless running game application about hamster with Leap Motion Controller in Virtual Reality
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine. 
 
 ### Prerequisites
 
 What things you need to install the software and how to install them
 
 ```
-Give examples
+* Unity Engine version 5.5.2f1 (64 bit)
+* Leap Motion Orion https://developer.leapmotion.com/windows-vr
+* TrinusVR Application on your smartphone
+* HamsterRushVR-Server https://github.com/LNWPOR/HamsterRushVR-Server
 ```
 
 ### Installing
