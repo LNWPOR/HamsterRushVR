@@ -1,6 +1,6 @@
 # Hamster Rush VR
 
-An endless running game application about hamster with Leap Motion Controller in Virtual Reality
+An endless running game application about hamster with Leap Motion Controller in Virtual Reality with TrinusVR
 
 ## Getting Started
 
@@ -31,7 +31,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Authors
 
-* **Teerapat Chaupetch** - Work Owner
+* **Teerapat Chaupetch** - Project Owner
 
 ## License
 
