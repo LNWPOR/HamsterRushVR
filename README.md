@@ -6,85 +6,33 @@ An endless running game application about hamster with Leap Motion Controller in
 
 These instructions will get you a copy of the project up and running on your local machine. 
 
+### Tools
+* Leap Motion Controller
+* VR Grasses for smartphone
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
 * Unity Engine version 5.5.2f1 (64 bit)
 * Leap Motion Orion https://developer.leapmotion.com/windows-vr
 * TrinusVR Application on your smartphone
 * HamsterRushVR-Server https://github.com/LNWPOR/HamsterRushVR-Server
-```
 
-### Installing
+## Running
 
-A step by step series of examples that tell you have to get a development env running
-
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
-
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+1. Start the HamsterRushVR-Server
+2. Open the TrinusVR application on your smartphone
+3. Your smartphone and pc must be in the same network.Recommend using the hotspot or USB (only android support).
+4. Run the game by press play button.
+5. Enter your name and press ready button on the first page.
+6. the game will ask for your IP and port.Use the IP and port from the TrinusVR application to connect.
+7. put your smartphone in the VR grasses.
+8. put the Leap Motion in front of the VR grasses.
+9. plugin the Leap Motion USE to the PC.
+10. You are ready to go.
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+* **Teerapat Chaupetch** - Work Owner
 
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
