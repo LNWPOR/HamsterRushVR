@@ -31,7 +31,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ## Authors
 
-* **Teerapat Chaupetch** - Project Owner
+* **Teerapat Chaupetch** - Project Owner - [LNWPOR](https://github.com/LNWPOR)
 
 ## License
 
